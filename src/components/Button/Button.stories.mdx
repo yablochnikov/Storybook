@@ -1,0 +1,29 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Button } from './Button.tsx';
+
+<Meta title="MDX/Button" component={Button} />
+
+## CustomButton
+#### A customizable React component
+
+const Template = (args) => ({
+  //👇 Your template goes here
+});
+
+<Canvas>
+	<Story name="primary">
+		<Button title="primary btn" btnType="primary" variant='contained'/>
+	</Story>
+    <Story name="secondary">
+        <Button title="secondary btn" btnType="secondary" />
+   </Story>
+   <Story name="error">
+        <Button title="error btn" btnType="error" />
+   </Story>
+   <Story name="success">
+        <Button title="success btn" btnType="success" />
+   </Story>
+   <Story name="info">
+        <Button title="info btn" btnType="info" />
+   </Story>
+</Canvas>
