@@ -1,26 +1,26 @@
 import { Button as MuiButton } from '@mui/material';
 import { FC } from 'react';
 
-type ButtonTypes = 'button' | 'submit';
+type ButtonTypes = 'button' | 'submit' | 'reset';
 type ButtonColor = 'primary' | 'secondary' | 'error' | 'success' | 'info';
 type ButtonVariant = 'text' | 'contained' | 'outlined';
 type ButtonSize = 'small' | 'medium' | 'large';
 
 interface IButtonProps {
-	title: string;
+	title?: string;
 	type?: ButtonTypes;
 	size?: ButtonSize;
 	btnType?: ButtonColor;
 	variant?: ButtonVariant;
-	clickAction?: () => void;
 	disabled?: boolean;
 	startIcon?: JSX.Element;
 	endIcon?: JSX.Element;
+	icon?: JSX.Element;
+	clickAction?: () => void;
 }
 
 export const Button: FC<IButtonProps> = ({
 	title,
-	clickAction,
 	btnType,
 	type,
 	startIcon,
@@ -28,6 +28,8 @@ export const Button: FC<IButtonProps> = ({
 	disabled,
 	variant = 'contained',
 	size,
+	icon,
+	clickAction,
 }) => {
 	return (
 		<MuiButton
@@ -41,15 +43,14 @@ export const Button: FC<IButtonProps> = ({
 			endIcon={endIcon}
 			sx={{
 				boxShadow: variant === 'contained' ? '0 4px 10px rgb(0 0 0 / 25%)' : '',
-				color: btnType === 'info' ? '#fff' : '#333',
-				fontWeight: '400',
-				fontSize: '18px',
-				padding: '10px 24px',
-				borderRadius: '4px',
-				maxHeight: '43px',
+				color: variant === 'contained' ? '#fff' : btnType,
+				borderRadius: icon ? '50%' : '4px',
+				padding: icon ? '8px' : '6px 16px',
+				minWidth: '24px',
 			}}
 		>
 			{title}
+			{icon && icon}
 		</MuiButton>
 	);
 };
