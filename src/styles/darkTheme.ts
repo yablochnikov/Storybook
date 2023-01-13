@@ -8,6 +8,9 @@ export const darkTheme = createTheme({
 		secondary: {
 			main: '#00867d',
 		},
+		success: {
+			main: '#2e7d32',
+		},
 	},
 	typography: {
 		fontFamily: 'Source Sans Pro, sans-serif',
