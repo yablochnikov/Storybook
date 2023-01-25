@@ -14,6 +14,9 @@ export const lightTheme = createTheme({
 			dark: '#00867d',
 			contrastText: '#000',
 		},
+		success: {
+			main: '#2F9E34',
+		},
 	},
 	typography: {
 		fontFamily: 'Source Sans Pro, sans-serif',
