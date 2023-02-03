@@ -4,14 +4,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { IDropdownItem } from './MultiDropdown';
 
 interface IMultipleDropdownItem {
-	dropdownItems: IDropdownItem[];
+	dropdownItems?: IDropdownItem[];
 	id: number;
 	value: string | JSX.Element | JSX.Element[];
 	index: number;
 	position?: string;
+	dropdownStylesItems?: {};
 }
 
-const MultipleDropdownItem: FC<IMultipleDropdownItem> = ({ dropdownItems, id, value, index, position }) => {
+const MultipleDropdownItem: FC<IMultipleDropdownItem> = ({ dropdownItems, id, value, index, dropdownStylesItems }) => {
 	const [expanded, setExpanded] = useState<string | false>(false);
 
 	const handleChange = (panel: string) => (event: SyntheticEvent, newExpanded: boolean) => {
@@ -24,9 +25,9 @@ const MultipleDropdownItem: FC<IMultipleDropdownItem> = ({ dropdownItems, id, va
 			onChange={handleChange(`panel${index}`)}
 			key={id}
 			disableGutters
+			sx={{ ...dropdownStylesItems }}
 		>
 			<AccordionSummary
-				className="FiveUi__dropdown-summary"
 				expandIcon={<ExpandMoreIcon />}
 				aria-controls={`panel${index}bh-content`}
 				id={`panel${index}bh-header`}
@@ -35,7 +36,6 @@ const MultipleDropdownItem: FC<IMultipleDropdownItem> = ({ dropdownItems, id, va
 			</AccordionSummary>
 			<AccordionDetails
 				sx={{
-					backgroundColor: 'inherit',
 					padding: '0',
 				}}
 			>

@@ -1,13 +1,12 @@
-import { FC, useEffect, useRef, useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { Accordion, AccordionDetails, AccordionSummary, Typography, Collapse } from '@mui/material';
 import MultipleDropdownItem from './MultipleDropdownItem';
-import './MultiDropdown.css';
 
 export interface IDropdownItem {
 	id: number;
 	value: string | JSX.Element | JSX.Element[];
-	onClick: () => void;
-	dropdownItems: IDropdownItem[];
+	onClick?: () => void;
+	dropdownItems?: IDropdownItem[];
 }
 
 interface IMultiDropdownProps {
@@ -17,9 +16,11 @@ interface IMultiDropdownProps {
 	disabled?: boolean;
 	// expanded?: boolean;
 	items?: IDropdownItem[];
-	dropdownStyles?: {};
+	dropdownStylesRoot?: {};
 	position?: string;
 	children?: JSX.Element | JSX.Element[] | string;
+	animationDuration?: number;
+	dropdownStylesItems?: {};
 }
 
 export const MultiDropdown: FC<IMultiDropdownProps> = ({
@@ -28,34 +29,40 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 	icon,
 	isExpanded,
 	disabled,
-	dropdownStyles,
+	dropdownStylesRoot,
 	position,
 	children,
+	animationDuration,
 }) => {
 	const refDropdown = useRef<HTMLDivElement>(null);
 	const [dropdownHeight, setDropdownHeight] = useState(0);
+	const [isOpen, setOpen] = useState(false);
 
 	useEffect(() => {
-		setDropdownHeight(refDropdown?.current ? refDropdown.current.clientHeight : 0);
-	}, []);
+		if (isExpanded) setOpen(true);
+		if (disabled) setOpen(false);
+		setDropdownHeight(refDropdown?.current ? refDropdown.current.clientHeight - 5 : 0);
+	}, [isExpanded, disabled]);
+
+	const handleClick = () => {
+		setOpen(isOpen => !isOpen);
+	};
 
 	return (
 		<Accordion
 			disabled={disabled}
-			className="FiveUi__dropdown-root"
 			defaultExpanded={isExpanded}
 			ref={refDropdown}
 			sx={{
-				flexDirection: 'column-reverse',
-				'& .MuiAccordion-root, .MuiAccordionSummary-root': {
-					...dropdownStyles,
-				},
+				position: 'relative',
+				...dropdownStylesRoot,
 			}}
 			disableGutters
 		>
 			<AccordionSummary
+				onClick={handleClick}
 				sx={{
-					'& .FiveUi__dropdown-icon': {
+					'& .MuiSvgIcon-root': {
 						transform: position === 'reversed' ? 'rotate(180deg)' : '',
 					},
 				}}
@@ -63,27 +70,49 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 			>
 				<Typography>{placeholder}</Typography>
 			</AccordionSummary>
+
 			<AccordionDetails
 				sx={{
 					padding: '0',
-					top: position === 'default' ? ` ${dropdownHeight}px` : 'auto',
-					bottom: position === 'reversed' ? ` ${dropdownHeight}px` : 'auto',
 				}}
-				className="FiveUi__dropdown-items"
 			>
-				{!items
-					? children
-					: items.map((item, index) =>
+				<Collapse
+					in={isOpen}
+					sx={{
+						position: 'absolute',
+						width: '100%',
+						visibility: 'visible',
+						zIndex: isOpen ? '1' : '-1',
+						bottom: position === 'reversed' ? ` ${dropdownHeight}px` : 'auto',
+						top: position === 'default' ? ` ${dropdownHeight}px` : 'auto',
+					}}
+					collapsedSize={0}
+					{...(isOpen ? { timeout: animationDuration } : {})}
+				>
+					{items && !children ? (
+						items.map((item, index) =>
 							item.dropdownItems ? (
-								<MultipleDropdownItem {...item} index={index} key={item.id} position={position} />
+								<MultipleDropdownItem
+									{...item}
+									index={index}
+									key={item.id}
+									position={position}
+									dropdownStylesItems
+								/>
 							) : (
-								<Accordion expanded={isExpanded} key={item.id}>
+								<Accordion key={item.id} disableGutters>
 									<AccordionSummary onClick={item.onClick}>
 										<Typography>{item.value}</Typography>
 									</AccordionSummary>
 								</Accordion>
 							)
-					  )}
+						)
+					) : (
+						<Accordion disableGutters>
+							<AccordionSummary>{children && children}</AccordionSummary>
+						</Accordion>
+					)}
+				</Collapse>
 			</AccordionDetails>
 		</Accordion>
 	);

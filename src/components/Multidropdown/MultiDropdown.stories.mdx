@@ -80,7 +80,7 @@ export const DefaultDropdownArgTypes = {
 	icon: {
 		name: 'Icon',
 		description: 'The icon to display as the expand indicator. Accepts node element. To control element use class .FiveUi__dropdown-icon',
-		defaultValue: <ExpandMoreIcon className="FiveUi__dropdown-icon"/>,
+		defaultValue: <ExpandMoreIcon/>,
 	},
 	disabled: {
 		name: 'Disabled',
@@ -109,15 +109,25 @@ export const DefaultDropdownArgTypes = {
 		},
 		defaultValue: 'default',
 	},
-	dropdownStyles: {
+	dropdownStylesRoot: {
 		name: 'DropdownStyles',
-		description: 'Styles object that will be applied to dropdown.',
-		defaultValue: {backgroundColor: '#fff', color: '#000'}
+		description: 'Styles that will be applied to dropdown root',
+		defaultValue: {backgroundColor: '#fff', color: '#000'},
+	},
+	dropdownStylesItems: {
+		name: 'DropdownStyles',
+		description: 'Styles that will be applied to dropdown items',
+		defaultValue: {},
 	},
 	children: {
 		name: 'Children',
 		description: "Children element that will be display inside dropdown, DON'T pass if you passing 'items'",
 	},
+	animationDuration: {
+		name: 'Animation duration',
+		description: 'Animation duration time in milliseconds',
+		defaultValue: 300,
+	}
 };
 
 <Meta title="MDX/MultiDropdown" component={MultiDropdown} argTypes={DefaultDropdownArgTypes} parameters={{
@@ -154,7 +164,22 @@ export const Template = args => {
 
 
 <Canvas>
-	<Story name="Reversed" args={{position: 'reversed'}} parameters={{layout: 'centered'}}>
+	<Story name="Reversed" args={{position: 'reversed'}} parameters={{
+		layout: 'centered'
+	}}>
+		{Template.bind({})}
+	</Story>
+</Canvas>
+
+
+#### Styles
+
+
+<Canvas>
+	<Story name="Styled" args={{dropdownStylesRoot: {backgroundColor: 'green', color: '#fff', '& svg': {
+				color: '#fff',
+			}},
+	}}>
 		{Template.bind({})}
 	</Story>
 </Canvas>
