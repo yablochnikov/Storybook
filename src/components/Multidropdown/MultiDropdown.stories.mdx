@@ -60,7 +60,7 @@ export const ExampleItems = [
 export const DefaultDropdownArgTypes = {
 	placeholder: {
 		name: 'Placeholder',
-		type: { name: 'string', required: false },
+		type: { name: 'string', required: true },
 		defaultValue: 'Dropdown',
 		description: 'Dropdown placeholder accepts string',
 		table: {
@@ -73,12 +73,14 @@ export const DefaultDropdownArgTypes = {
 	},
 	items: {
 		name: 'items',
+		type: {name: 'Object'},
 		description:
 			"You can pass array with an objects see doc",
 		defaultValue: ExampleItems,
 	},
 	icon: {
 		name: 'Icon',
+		type: { name: 'Element', required: true },
 		description: 'The icon to display as the expand indicator. Accepts node element. To control element use class .FiveUi__dropdown-icon',
 		defaultValue: <ExpandMoreIcon/>,
 	},
@@ -114,11 +116,6 @@ export const DefaultDropdownArgTypes = {
 		description: 'Styles that will be applied to dropdown root',
 		defaultValue: {backgroundColor: '#fff', color: '#000'},
 	},
-	dropdownStylesItems: {
-		name: 'DropdownStyles',
-		description: 'Styles that will be applied to dropdown items',
-		defaultValue: {},
-	},
 	children: {
 		name: 'Children',
 		description: "Children element that will be display inside dropdown, DON'T pass if you passing 'items'",
@@ -146,6 +143,8 @@ export const Template = args => {
 
 #### Using items prop
 
+By passing `items` prop you can create multiple dropdown
+
 <Canvas>
 	<Story name="Using items prop" args={{ items: ExampleItems }}>
 		{Template.bind({})}
@@ -153,6 +152,8 @@ export const Template = args => {
 </Canvas>
 
 #### Using children prop
+
+By passing `children` prop you can create dropdown
 
 <Canvas>
 	<Story name="Using children prop" args={{children: <div style={{padding: '30px'}}>{textExample}</div>}}>
@@ -162,6 +163,7 @@ export const Template = args => {
 
 #### Position reversed
 
+By passing `position` prop you can change expand direction of dropdown
 
 <Canvas>
 	<Story name="Reversed" args={{position: 'reversed'}} parameters={{
@@ -171,16 +173,29 @@ export const Template = args => {
 	</Story>
 </Canvas>
 
+#### Expanded
+
+By passing `isExpanded` prop you can create dropdown that will be expanded by default
+
+<Canvas>
+	<Story name="Expanded" args={{isExpanded: true}}>
+		{Template.bind({})}
+	</Story>
+</Canvas>
+
 
 #### Styles
 
+By passing `dropdownStylesRoot` and prop you can change default style of dropdown or dropdown content
 
 <Canvas>
-	<Story name="Styled" args={{dropdownStylesRoot: {backgroundColor: 'green', color: '#fff', '& svg': {
+	<Story name="StyledRoot" args={{dropdownStylesRoot: {backgroundColor: 'green', color: '#fff', '& svg': {
 				color: '#fff',
 			}},
 	}}>
 		{Template.bind({})}
 	</Story>
 </Canvas>
+
+
 

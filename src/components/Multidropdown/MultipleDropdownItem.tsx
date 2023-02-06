@@ -9,14 +9,13 @@ interface IMultipleDropdownItem {
 	value: string | JSX.Element | JSX.Element[];
 	index: number;
 	position?: string;
-	dropdownStylesItems?: {};
 }
 
-const MultipleDropdownItem: FC<IMultipleDropdownItem> = ({ dropdownItems, id, value, index, dropdownStylesItems }) => {
-	const [expanded, setExpanded] = useState<string | false>(false);
+const MultipleDropdownItem: FC<IMultipleDropdownItem> = ({ dropdownItems, id, value, index }) => {
+	const [expanded, setExpanded] = useState<string>('');
 
 	const handleChange = (panel: string) => (event: SyntheticEvent, newExpanded: boolean) => {
-		setExpanded(newExpanded ? panel : false);
+		setExpanded(newExpanded ? panel : '');
 	};
 
 	return (
@@ -25,7 +24,6 @@ const MultipleDropdownItem: FC<IMultipleDropdownItem> = ({ dropdownItems, id, va
 			onChange={handleChange(`panel${index}`)}
 			key={id}
 			disableGutters
-			sx={{ ...dropdownStylesItems }}
 		>
 			<AccordionSummary
 				expandIcon={<ExpandMoreIcon />}
