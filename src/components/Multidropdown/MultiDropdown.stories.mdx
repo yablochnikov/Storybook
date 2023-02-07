@@ -18,27 +18,32 @@ export const ExampleItems = [
 			{
 				id: 3,
 				value: 'Sub-item 1',
-				onClick: () => {},
+				onClick: () => {
+				},
 				dropdownItems: [
 					{
 						id: 4,
 						value: 'Sub-sub-item 1',
-						onClick: () => {},
+						onClick: () => {
+						},
 					},
 					{
 						id: 5,
 						value: 'Sub-sub-item 2',
-						onClick: () => {},
+						onClick: () => {
+						},
 						dropdownItems: [
 							{
 								id: 6,
 								value: 'Sub-sub-sub-item 1',
-								onClick: () => {},
+								onClick: () => {
+								},
 							},
 							{
 								id: 7,
 								value: 'Sub-sub-sub-item 2',
-								onClick: () => {},
+								onClick: () => {
+								},
 							},
 						],
 					},
@@ -47,7 +52,8 @@ export const ExampleItems = [
 			{
 				id: 8,
 				value: 'Sub-item 2',
-				onClick: () => {},
+				onClick: () => {
+				},
 			},
 		],
 	},
@@ -73,7 +79,7 @@ export const DefaultDropdownArgTypes = {
 	},
 	items: {
 		name: 'items',
-		type: {name: 'Object'},
+		type: { name: 'Object' },
 		description:
 			"You can pass array with an objects see doc",
 		defaultValue: ExampleItems,
@@ -82,7 +88,7 @@ export const DefaultDropdownArgTypes = {
 		name: 'Icon',
 		type: { name: 'Element', required: true },
 		description: 'The icon to display as the expand indicator. Accepts node element. To control element use class .FiveUi__dropdown-icon',
-		defaultValue: <ExpandMoreIcon/>,
+		defaultValue: <ExpandMoreIcon />,
 	},
 	disabled: {
 		name: 'Disabled',
@@ -114,17 +120,12 @@ export const DefaultDropdownArgTypes = {
 	dropdownStylesRoot: {
 		name: 'DropdownStyles',
 		description: 'Styles that will be applied to dropdown root',
-		defaultValue: {backgroundColor: '#fff', color: '#000'},
+		defaultValue: { backgroundColor: '#fff', color: '#000' },
 	},
 	children: {
 		name: 'Children',
 		description: "Children element that will be display inside dropdown, DON'T pass if you passing 'items'",
 	},
-	animationDuration: {
-		name: 'Animation duration',
-		description: 'Animation duration time in milliseconds',
-		defaultValue: 300,
-	}
 };
 
 <Meta title="MDX/MultiDropdown" component={MultiDropdown} argTypes={DefaultDropdownArgTypes} parameters={{
@@ -134,11 +135,11 @@ export const DefaultDropdownArgTypes = {
 			handles: ['mouseover', 'click .btn'],
 		},
 	},
-	}}
+}}
 />
 
 export const Template = args => {
-	return <MultiDropdown {...args}  />;
+	return <MultiDropdown {...args} />;
 }
 
 #### Using items prop
@@ -156,7 +157,7 @@ By passing `items` prop you can create multiple dropdown
 By passing `children` prop you can create dropdown
 
 <Canvas>
-	<Story name="Using children prop" args={{children: <div style={{padding: '30px'}}>{textExample}</div>}}>
+	<Story name="Using children prop" args={{ children: <div style={{ padding: '30px' }}>{textExample}</div> }}>
 		{Template.bind({})}
 	</Story>
 </Canvas>
@@ -166,7 +167,7 @@ By passing `children` prop you can create dropdown
 By passing `position` prop you can change expand direction of dropdown
 
 <Canvas>
-	<Story name="Reversed" args={{position: 'reversed'}} parameters={{
+	<Story name="Reversed" args={{ position: 'reversed' }} parameters={{
 		layout: 'centered'
 	}}>
 		{Template.bind({})}
@@ -178,7 +179,7 @@ By passing `position` prop you can change expand direction of dropdown
 By passing `isExpanded` prop you can create dropdown that will be expanded by default
 
 <Canvas>
-	<Story name="Expanded" args={{isExpanded: true}}>
+	<Story name="Expanded" args={{ isExpanded: true }}>
 		{Template.bind({})}
 	</Story>
 </Canvas>
@@ -189,9 +190,12 @@ By passing `isExpanded` prop you can create dropdown that will be expanded by de
 By passing `dropdownStylesRoot` and prop you can change default style of dropdown or dropdown content
 
 <Canvas>
-	<Story name="StyledRoot" args={{dropdownStylesRoot: {backgroundColor: 'green', color: '#fff', '& svg': {
+	<Story name="StyledRoot" args={{
+		dropdownStylesRoot: {
+			backgroundColor: 'green', color: '#fff', '& svg': {
 				color: '#fff',
-			}},
+			}
+		},
 	}}>
 		{Template.bind({})}
 	</Story>

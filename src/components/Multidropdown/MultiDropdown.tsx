@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary, Typography, keyframes } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, keyframes, Typography } from '@mui/material';
 import MultipleDropdownItem from './MultipleDropdownItem';
 
 export interface IDropdownItem {
@@ -14,12 +14,10 @@ interface IMultiDropdownProps {
 	icon: JSX.Element;
 	isExpanded?: boolean;
 	disabled?: boolean;
-	// expanded?: boolean;
 	items?: IDropdownItem[];
 	dropdownStylesRoot?: {};
 	position?: string;
 	children?: JSX.Element | JSX.Element[] | string;
-	animationDuration?: number;
 }
 
 export const MultiDropdown: FC<IMultiDropdownProps> = ({
@@ -31,34 +29,35 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 	dropdownStylesRoot,
 	position,
 	children,
-	animationDuration,
 }) => {
 	const refDropdown = useRef<HTMLDivElement>(null);
 	const [dropdownHeight, setDropdownHeight] = useState(0);
 	const [isOpen, setOpen] = useState(false);
 
 	const animationIn = keyframes`
-    0% {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-    100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-    
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+        visibility: hidden;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
 	`;
 
 	const animationOut = keyframes`
-    0% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-    100% {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-    
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-10px);
+        visibility: hidden;
+      }
 	`;
 
 	useEffect(() => {
@@ -98,32 +97,40 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 				sx={{
 					padding: '0',
 					opacity: 1,
-					height: 'max-content',
 					animation: isOpen ? `${animationIn} 0.1s ease-in` : `${animationOut} 0.1s ease-out`,
 					position: 'absolute',
 					width: '100%',
+					maxHeight: '300px',
 					zIndex: isOpen ? '1' : '-1',
 					bottom: position === 'reversed' ? ` ${dropdownHeight}px` : 'auto',
 					top: position === 'default' ? ` ${dropdownHeight}px` : 'auto',
 				}}
 			>
-				{items && !children ? (
-					items.map((item, index) =>
-						item.dropdownItems ? (
-							<MultipleDropdownItem {...item} index={index} key={item.id} position={position} />
-						) : (
-							<Accordion key={item.id} disableGutters>
-								<AccordionSummary onClick={item.onClick}>
-									<Typography>{item.value}</Typography>
-								</AccordionSummary>
-							</Accordion>
+				<Box
+					sx={{
+						maxHeight: '200px',
+						boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+						overflowY: 'scroll',
+					}}
+				>
+					{items && !children ? (
+						items.map((item, index) =>
+							item.dropdownItems ? (
+								<MultipleDropdownItem {...item} index={index} key={item.id} position={position} />
+							) : (
+								<Accordion key={item.id} disableGutters>
+									<AccordionSummary onClick={item.onClick}>
+										<Typography>{item.value}</Typography>
+									</AccordionSummary>
+								</Accordion>
+							)
 						)
-					)
-				) : (
-					<Accordion disableGutters>
-						<AccordionSummary>{children && children}</AccordionSummary>
-					</Accordion>
-				)}
+					) : (
+						<Accordion disableGutters>
+							<AccordionSummary>{children && children}</AccordionSummary>
+						</Accordion>
+					)}
+				</Box>
 			</AccordionDetails>
 		</Accordion>
 	);
