@@ -1,6 +1,7 @@
 import { Box, Modal, Typography } from '@mui/material';
 import { FC } from 'react';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
+import { SxProps } from '@mui/system';
 import { Button } from '../Button/Button';
 
 interface IAlertModalProps {
@@ -14,10 +15,10 @@ interface IAlertModalProps {
 	isDestructive?: boolean;
 	showModal: boolean;
 	closeModal: () => void;
-	modalStyles?: {};
-	modalContentStyles?: {};
-	cancelBtnStyles?: {};
-	confirmBtnStyles?: {};
+	modalStyles?: SxProps;
+	modalContentStyles?: SxProps;
+	cancelBtnStyles?: SxProps;
+	confirmBtnStyles?: SxProps;
 }
 
 const AlertModal: FC<IAlertModalProps> = ({
@@ -36,8 +37,8 @@ const AlertModal: FC<IAlertModalProps> = ({
 	cancelBtnStyles,
 	confirmBtnStyles,
 }) => {
-	const modalStyle = {
-		position: 'absolute' as 'absolute',
+	const modalStyle: SxProps = {
+		position: 'absolute',
 		top: '50%',
 		zIndex: 999,
 		left: '50%',
@@ -51,7 +52,7 @@ const AlertModal: FC<IAlertModalProps> = ({
 		...modalStyles,
 	};
 
-	const iconStyle = {
+	const iconStyle: SxProps = {
 		padding: '5px',
 		marginRight: '15px',
 		width: '35px',
