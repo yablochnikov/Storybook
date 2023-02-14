@@ -1,4 +1,4 @@
-import { Button as MuiButton } from '@mui/material';
+import { Button as MuiButton, SxProps } from '@mui/material';
 import { FC } from 'react';
 
 type ButtonTypes = 'button' | 'submit' | 'reset';
@@ -17,6 +17,7 @@ interface IButtonProps {
 	endIcon?: JSX.Element;
 	icon?: JSX.Element;
 	clickAction?: () => void;
+	styles?: SxProps;
 }
 
 export const Button: FC<IButtonProps> = ({
@@ -30,6 +31,7 @@ export const Button: FC<IButtonProps> = ({
 	size,
 	icon,
 	clickAction,
+	styles,
 }) => {
 	return (
 		<MuiButton
@@ -47,6 +49,7 @@ export const Button: FC<IButtonProps> = ({
 				borderRadius: icon ? '50%' : '4px',
 				padding: icon ? '8px' : '6px 16px',
 				minWidth: '24px',
+				...styles,
 			}}
 		>
 			{title}
