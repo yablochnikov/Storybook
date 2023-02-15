@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary, Box, keyframes, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import MultipleDropdownItem from './MultipleDropdownItem';
 
 export interface IDropdownItem {
@@ -33,32 +33,6 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 	const refDropdown = useRef<HTMLDivElement>(null);
 	const [dropdownHeight, setDropdownHeight] = useState(0);
 	const [isOpen, setOpen] = useState(false);
-
-	const animationIn = keyframes`
-      0% {
-        opacity: 0;
-        transform: translateY(-10px);
-        visibility: hidden;
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-        visibility: visible;
-      }
-	`;
-
-	const animationOut = keyframes`
-      0% {
-        opacity: 1;
-        transform: translateY(0);
-        visibility: visible;
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-10px);
-        visibility: hidden;
-      }
-	`;
 
 	useEffect(() => {
 		if (isExpanded) setOpen(true);
@@ -96,14 +70,28 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 			<AccordionDetails
 				sx={{
 					padding: '0',
-					opacity: 1,
-					animation: isOpen ? `${animationIn} 0.1s ease-in` : `${animationOut} 0.1s ease-out`,
-					position: 'absolute',
+					left: 0,
 					width: '100%',
+					overflow: 'hidden',
+					height: isOpen ? '100%' : 0,
+					opacity: isOpen ? 1 : 0,
+					transition: 'height 0.3s ease, opacity 0.3s ease',
 					maxHeight: '300px',
 					zIndex: isOpen ? '1' : '-1',
 					bottom: position === 'reversed' ? ` ${dropdownHeight}px` : 'auto',
 					top: position === 'default' ? ` ${dropdownHeight}px` : 'auto',
+					'::-webkit-scrollbar': {
+						width: '20px',
+					},
+					'::-webkit-scrollbar-track': {
+						background: '#f1f1f1',
+					},
+					'::-webkit-scrollbar-thumb': {
+						borderRadius: '20px',
+						backgroundColor: '#d6dee1',
+						border: '6px solid transparent',
+						backgroundClip: 'content-box',
+					},
 				}}
 			>
 				<Box
