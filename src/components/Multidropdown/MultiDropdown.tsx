@@ -69,15 +69,19 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 
 			<AccordionDetails
 				sx={{
+					position: 'absolute',
+					visibility: 'visible',
 					padding: '0',
 					left: 0,
 					width: '100%',
-					overflow: 'hidden',
-					height: isOpen ? '100%' : 0,
-					opacity: isOpen ? 1 : 0,
-					transition: 'height 0.3s ease, opacity 0.3s ease',
-					maxHeight: '300px',
-					zIndex: isOpen ? '1' : '-1',
+					maxHeight: isOpen ? '300px' : 0,
+					overflow: 'auto',
+					borderRadius: '0 0 5px 5px',
+					opacity: 1,
+					transition: 'max-height 0.3s ease, opacity 0.3s ease',
+					boxShadow:
+						'0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
+					zIndex: 1,
 					bottom: position === 'reversed' ? ` ${dropdownHeight}px` : 'auto',
 					top: position === 'default' ? ` ${dropdownHeight}px` : 'auto',
 					'::-webkit-scrollbar': {
@@ -96,7 +100,6 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 			>
 				<Box
 					sx={{
-						maxHeight: '200px',
 						boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
 						overflowY: 'scroll',
 					}}
