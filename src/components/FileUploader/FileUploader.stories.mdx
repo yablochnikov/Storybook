@@ -1,0 +1,27 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
+import FileUploader from './FileUploader';
+
+export const DefaultFileUploaderArgTypes = {};
+
+<Meta title="MDX/FileUploader" component={FileUploader} argTypes={DefaultFileUploaderArgTypes} parameters={{
+	controls: {
+		expanded: true,
+		actions: {
+			handles: ['mouseover', 'click .btn'],
+		},
+	},
+}}
+/>
+
+export const Template = args => {
+	return <FileUploader {...args} />;
+}
+
+#### Playground
+
+<Canvas>
+	<Story name="Using items prop">
+		{Template.bind({})}
+	</Story>
+</Canvas>
+

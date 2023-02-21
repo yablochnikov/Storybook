@@ -1,0 +1,127 @@
+.uploader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.drag-drop-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #C9DADF;
+    padding: 10px;
+}
+
+.drag-drop {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #93B0B3;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #184350;
+}
+
+.drag-drop span {
+    color: #1E4855;
+    font-weight: 800;
+}
+
+.files__list {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+}
+
+.files__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file__data {
+    display: flex;
+    align-items: center;
+}
+
+.file__icon {
+    margin-right: 15px;
+}
+
+.file__controls {
+    align-items: center;
+    display: flex;
+}
+
+.files__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    background-color: #3280F5;
+    padding: 0 10px;
+}
+
+.files__list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.files__list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.file-list img {
+    height: 24px;
+    margin-right: 10px;
+}
+
+.file-list span {
+    margin-right: 10px;
+}
+
+.files__item button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.status-uploaded {
+    color: #27ae60;
+}
+
+.status-uploading {
+    color: #2980b9;
+}
+
+.status-error {
+    color: #e74c3c;
+}
+
+.remove-all {
+    background-color: #286CCC;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
