@@ -10,12 +10,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Box } from '@mui/material';
 
 interface File {
-	// eslint-disable-next-line no-restricted-globals
-	name: string;
-	type: string;
-	size: number;
-	// eslint-disable-next-line no-restricted-globals
-	status: string;
+	fileName: string;
+	fileType: string;
+	fileSize: number;
+	fileStatus: string;
 }
 
 const FileUploader = () => {
@@ -25,32 +23,33 @@ const FileUploader = () => {
 		event.preventDefault();
 		const newFiles = [...files];
 
-		// @ts-ignore // eslint-disable-next-line no-restricted-syntax
-		// eslint-disable-next-line no-restricted-syntax
-		for (const file of event.dataTransfer.files) {
+		const userFiles = Array.from(event.dataTransfer.files);
+
+		userFiles.forEach(file => {
 			newFiles.push({
-				name: file.name,
-				type: file.type,
-				size: file.size,
-				status: 'Uploaded',
+				fileName: file.name,
+				fileType: file.type,
+				fileSize: file.size,
+				fileStatus: 'Uploaded',
 			});
-		}
+		});
 
 		setFiles(newFiles);
 	}
 
 	function handleFileSelect(event: ChangeEvent<HTMLInputElement>) {
 		const newFiles = [...files];
-		// @ts-ignore // eslint-disable-next-line no-restricted-syntax
-		// eslint-disable-next-line no-restricted-syntax
-		for (const file of event.target.files as FileList) {
+
+		const userFiles = Array.from(event.target.files || []);
+
+		userFiles.forEach(file => {
 			newFiles.push({
-				name: file.name,
-				type: file.type,
-				size: file.size,
-				status: 'Uploaded',
+				fileName: file.name,
+				fileType: file.type,
+				fileSize: file.size,
+				fileStatus: 'Uploaded',
 			});
-		}
+		});
 
 		setFiles(newFiles);
 	}
@@ -130,10 +129,10 @@ const FileUploader = () => {
 					</div>
 					<ul>
 						{files.map((file, index) => (
-							<li key={file.name} className="files__item">
+							<li key={file.fileName} className="files__item">
 								<div className="file__data">
-									<div className="file__icon">{getFileExtension(file.name)}</div>
-									<span className="file__name">{file.name}</span>
+									<div className="file__icon">{getFileExtension(file.fileName)}</div>
+									<span className="file__name">{file.fileName}</span>
 								</div>
 								<div className="file__controls">
 									<DeleteIcon
@@ -142,7 +141,7 @@ const FileUploader = () => {
 											cursor: 'pointer',
 										}}
 									/>
-									<span className="file__status">{file.status}</span>
+									<span className="file__status">{file.fileStatus}</span>
 								</div>
 							</li>
 						))}
