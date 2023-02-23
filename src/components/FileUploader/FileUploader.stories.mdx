@@ -1,7 +1,53 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
 import FileUploader from './FileUploader';
 
-export const DefaultFileUploaderArgTypes = {};
+export const DefaultFileUploaderArgTypes = {
+	title: {
+		name: 'title',
+		type: { name: 'string', required: false },
+		description: 'Title of the file uploader.',
+		control: {
+			type: 'text',
+		},
+		defaultValue: <p><span>Choose a file</span> or drag it here</p>
+	},
+	listTitle: {
+		name: 'listTitle',
+		type: { name: 'string', required: false },
+		description: 'Description of the files list ',
+		control: {
+			type: 'text',
+		},
+		defaultValue: 'Files',
+	},
+	submitButtonLabel: {
+		name: 'submitButtonLabel',
+		type: { name: 'string', required: false },
+		description: 'Label of the submit button',
+		control: {
+			type: 'text',
+		},
+		defaultValue: 'Submit',
+	},
+	submitButtonCallback: {
+		name: 'submitButtonCallback',
+		type: { name: 'function', required: false },
+		description: 'Callback function of the submit button',
+		control: {
+			type: 'function',
+		},
+		defaultValue: () => console.log('Submit button clicked'),
+	},
+	removeButtonLabel: {
+		name: 'removeButtonLabel',
+		type: { name: 'string', required: false },
+		description: 'Label of the remove button',
+		control: {
+			type: 'text',
+		},
+		defaultValue: 'Remove all',
+	},
+};
 
 <Meta title="MDX/FileUploader" component={FileUploader} argTypes={DefaultFileUploaderArgTypes} parameters={{
 	controls: {
@@ -20,7 +66,7 @@ export const Template = args => {
 #### Playground
 
 <Canvas>
-	<Story name="Using items prop">
+	<Story name="Playground">
 		{Template.bind({})}
 	</Story>
 </Canvas>

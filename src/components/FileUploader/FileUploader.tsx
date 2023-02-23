@@ -1,152 +1,103 @@
-import { ChangeEvent, DragEvent, ReactElement, useState } from 'react';
+import { ChangeEvent, DragEvent, FC, ReactElement, useRef, useState } from 'react';
 import './FileUploader.css';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import ArticleIcon from '@mui/icons-material/Article';
-import ImageIcon from '@mui/icons-material/Image';
-import VideoFileIcon from '@mui/icons-material/VideoFile';
-import AttachmentIcon from '@mui/icons-material/Attachment';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Box } from '@mui/material';
+import { Box, SxProps, Typography } from '@mui/material';
+import { FileUpload } from '@mui/icons-material';
 
-interface File {
-	fileName: string;
-	fileType: string;
-	fileSize: number;
-	fileStatus: string;
+import { File } from '../../core/models/fileUploader';
+import FilesList from './FilesList';
+
+import { getFileExtension } from '../../core/helpers/FileUploader';
+
+interface FileUploaderProps {
+	title: string | ReactElement;
+	listTitle: string | ReactElement;
+	removeButtonLabel: string;
+	submitButtonCallback: () => void;
+	uploaderRootStyles: SxProps;
+	dragDropContainerStyles: SxProps;
+	uploaderTitleStyles: SxProps;
 }
 
-const FileUploader = () => {
+const FileUploader: FC<FileUploaderProps> = ({
+	title,
+	listTitle,
+	removeButtonLabel,
+	submitButtonCallback,
+	uploaderRootStyles,
+	dragDropContainerStyles,
+	uploaderTitleStyles,
+}) => {
 	const [files, setFiles] = useState<File[]>([]);
+	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	function handleDrop(event: DragEvent<HTMLDivElement>) {
-		event.preventDefault();
-		const newFiles = [...files];
-
-		const userFiles = Array.from(event.dataTransfer.files);
-
-		userFiles.forEach(file => {
-			newFiles.push({
-				fileName: file.name,
-				fileType: file.type,
-				fileSize: file.size,
-				fileStatus: 'Uploaded',
-			});
-		});
-
-		setFiles(newFiles);
-	}
-
-	function handleFileSelect(event: ChangeEvent<HTMLInputElement>) {
-		const newFiles = [...files];
-
-		const userFiles = Array.from(event.target.files || []);
-
-		userFiles.forEach(file => {
-			newFiles.push({
-				fileName: file.name,
-				fileType: file.type,
-				fileSize: file.size,
-				fileStatus: 'Uploaded',
-			});
-		});
-
-		setFiles(newFiles);
-	}
-
-	function handleRemove(index: number) {
-		const newFiles = [...files];
-		newFiles.splice(index, 1);
-		setFiles(newFiles);
-	}
-
-	function handleRemoveAll() {
-		setFiles([]);
-	}
-
-	function getFileExtension(filename: string): ReactElement {
-		switch (filename.split('.').pop() || '') {
-			case 'pdf':
-				return <PictureAsPdfIcon />;
-			case 'doc':
-				return <ArticleIcon />;
-			case 'docx':
-				return <ArticleIcon />;
-			case 'txt':
-				return <ArticleIcon />;
-			case 'rtf':
-				return <ArticleIcon />;
-			case 'xlsx':
-				return <ArticleIcon />;
-			case 'jpg':
-				return <ImageIcon />;
-			case 'png':
-				return <ImageIcon />;
-			case 'jpeg':
-				return <ImageIcon />;
-			case 'mov':
-				return <VideoFileIcon />;
-			default:
-				return <AttachmentIcon />;
+	const handleDragDropClick = () => {
+		if (fileInputRef.current) {
+			fileInputRef.current.click();
 		}
-	}
+	};
+
+	const handleFiles = (files: FileList | null) => {
+		if (!files) {
+			return;
+		}
+
+		const newFiles = Array.from(files).map(file => ({
+			name: file.name,
+			type: file.type,
+			size: file.size,
+			status: 'Uploaded',
+		}));
+
+		setFiles(prevFiles => [...prevFiles, ...newFiles]);
+	};
+
+	const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+		event.preventDefault();
+		handleFiles(event.dataTransfer.files);
+	};
+
+	const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
+		handleFiles(event.target.files);
+	};
+
+	const handleRemove = (index: number) => {
+		setFiles(files.filter((_file, i) => i !== index));
+	};
+
+	const handleRemoveAll = () => {
+		setFiles([]);
+	};
 
 	return (
-		<Box className="uploader">
-			<div className="drag-drop-container">
+		<Box className="uploader" sx={{ ...uploaderRootStyles }}>
+			<Box className="drag-drop-container" sx={{ ...dragDropContainerStyles }}>
 				<div
 					className="drag-drop"
 					onDrop={handleDrop}
 					onDragOver={event => event.preventDefault()}
-					onClick={() => (document.querySelector('#file-input') as HTMLInputElement).click()}
+					onClick={handleDragDropClick}
 				>
-					<input
-						id="file-input"
-						type="file"
-						multiple
-						style={{ display: 'none' }}
-						onChange={handleFileSelect}
-					/>
-					<FileUploadIcon
+					<input ref={fileInputRef} id="file__input" type="file" multiple onChange={handleFileSelect} />
+					<FileUpload
 						sx={{
 							color: '#93B0B3',
 							width: '36px',
 							height: '36px',
 						}}
 					/>
-					<p>
-						<span>Choose a file</span> or drag it here.
-					</p>
+					<Typography sx={{ ...uploaderTitleStyles }}>{title}</Typography>
 				</div>
-			</div>
+			</Box>
 			{files.length > 0 && (
-				<div className="files__list">
-					<div className="files__header">
-						<h3>Files</h3>
-						<button type="button" className="remove-all" onClick={handleRemoveAll}>
-							Remove All
-						</button>
-					</div>
-					<ul>
-						{files.map((file, index) => (
-							<li key={file.fileName} className="files__item">
-								<div className="file__data">
-									<div className="file__icon">{getFileExtension(file.fileName)}</div>
-									<span className="file__name">{file.fileName}</span>
-								</div>
-								<div className="file__controls">
-									<DeleteIcon
-										onClick={() => handleRemove(index)}
-										sx={{
-											cursor: 'pointer',
-										}}
-									/>
-									<span className="file__status">{file.fileStatus}</span>
-								</div>
-							</li>
-						))}
-					</ul>
-				</div>
+				<FilesList
+					files={files}
+					handleRemove={handleRemove}
+					handleRemoveAll={handleRemoveAll}
+					getFileExtension={getFileExtension}
+					removeButtonLabel={removeButtonLabel}
+					title={listTitle}
+					submitButtonCallback={submitButtonCallback}
+				/>
 			)}
 		</Box>
 	);
