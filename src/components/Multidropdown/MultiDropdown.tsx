@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Box, keyframes, Typography } from '@mui/material';
+import { useTheme } from '@mui/system';
+
 import MultipleDropdownItem from './MultipleDropdownItem';
 
 export interface IDropdownItem {
@@ -30,6 +32,7 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 	position,
 	children,
 }) => {
+	const theme: any = useTheme();
 	const refDropdown = useRef<HTMLDivElement>(null);
 	const [dropdownHeight, setDropdownHeight] = useState(0);
 	const [isOpen, setOpen] = useState(false);
@@ -77,6 +80,7 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 			ref={refDropdown}
 			sx={{
 				position: 'relative',
+				width: '100%',
 				...dropdownStylesRoot,
 			}}
 			disableGutters
@@ -87,6 +91,8 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 					'& .MuiSvgIcon-root': {
 						transform: position === 'reversed' ? 'rotate(180deg)' : '',
 					},
+					backgroundColor: theme.palette.background.paper,
+					color: theme.palette.text.primary,
 				}}
 				expandIcon={icon}
 			>

@@ -13,10 +13,12 @@ export const lightTheme = createTheme({
 		},
 		error: {
 			main: '#f02849',
+			light: '#FEE2E2',
 			contrastText: '#ffffff',
 		},
 		warning: {
 			main: '#faa61a',
+			light: '#FDF3C7',
 			contrastText: '#ffffff',
 		},
 		info: {

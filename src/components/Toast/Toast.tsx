@@ -4,6 +4,7 @@ import MuiAlert, { AlertColor, AlertProps } from '@mui/material/Alert';
 import { AlertTitle, Box, SxProps } from '@mui/material';
 import { OverridableStringUnion } from '@mui/types';
 import { AlertPropsVariantOverrides } from '@mui/material/Alert/Alert';
+import { useTheme } from '@mui/system';
 
 interface IToastProps {
 	id: string;
@@ -41,8 +42,15 @@ export const Toast: FC<IToastProps> = ({
 	variant,
 	stylesRoot,
 }) => {
+	const theme: any = useTheme();
 	return (
-		<Snackbar open={showToast} autoHideDuration={timeoutMs} onClose={onClose} sx={stylesRoot} id={id}>
+		<Snackbar
+			open={showToast}
+			autoHideDuration={timeoutMs}
+			onClose={onClose}
+			sx={{ backgroundColor: theme.palette.background.paper, ...stylesRoot }}
+			id={id}
+		>
 			<Alert title={title} severity={type && type} onClose={onClose} variant={variant}>
 				{message}
 				{action}
