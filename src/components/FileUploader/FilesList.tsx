@@ -1,15 +1,17 @@
 import React, { FC, ReactElement } from 'react';
-import { Delete } from '@mui/icons-material';
-import { Box, Button, Typography } from '@mui/material';
-import { cutFileName } from '../../core/helpers/FileUploader';
+import { Clear } from '@mui/icons-material';
+import CheckIcon from '@mui/icons-material/Check';
+import { useTheme } from '@mui/system';
+import { Box, Button, List, ListItem, ListItemIcon, ListItemText, Tooltip, Typography } from '@mui/material';
 import { File } from '../../core/models/fileUploader';
 import './FilesList.css';
+import { cutFileName } from '../../core/helpers/FileUploader';
 
 interface FilesListProps {
 	files: File[];
 	title?: string | ReactElement;
-	handleRemove?: (index: number) => void;
-	handleRemoveAll?: () => void;
+	handleRemove: (index: number) => void;
+	handleRemoveAll: () => void;
 	getFileExtension?: (fileName: string) => ReactElement;
 	removeButtonLabel?: string;
 	submitButtonCallback?: () => void;
@@ -24,44 +26,105 @@ const FilesList: FC<FilesListProps> = ({
 	removeButtonLabel,
 	submitButtonCallback,
 }) => {
+	const theme: any = useTheme();
+
 	return (
-		<Box className="files__list">
-			<Box className="files__header">
-				<Typography>{title}</Typography>
-				<Button
-					type="button"
-					className="remove-all"
-					onClick={handleRemoveAll}
-					variant="text"
+		<Box
+			sx={{
+				backgroundColor: theme.palette.background.paper,
+				borderRadius: '10px',
+				width: '100%',
+				marginTop: '20px',
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+			}}
+		>
+			<Box
+				sx={{
+					borderRadius: '10px 10px 0 0',
+					display: 'flex',
+					justifyContent: 'space-between',
+					padding: theme.spacing(3),
+					width: '100%',
+					alignItems: 'center',
+					backgroundColor: theme.palette.primary.main,
+				}}
+			>
+				<Typography
 					sx={{
-						backgroundColor: '#286CCC',
-						color: '#fff',
+						color: theme.palette.primary.contrastText,
+						fontWeight: theme.typography.fontWeightBold,
+					}}
+				>
+					{title}
+				</Typography>
+				<Typography
+					onClick={handleRemoveAll}
+					sx={{
+						'&:hover': {
+							backgroundColor: theme.palette.primary.main,
+							color: theme.palette.primary.contrastText,
+						},
+						color: theme.palette.primary.contrastText,
+						cursor: 'pointer',
+						fontWeight: theme.typography.fontWeightBold,
+						padding: theme.spacing(2),
 						textTransform: 'none',
-						fontWeight: 600,
 					}}
 				>
 					{removeButtonLabel}
-				</Button>
+				</Typography>
 			</Box>
-			<ul>
+			<List
+				sx={{
+					width: '100%',
+					maxHeight: '500px',
+					overflow: 'auto',
+					backgroundColor: theme.palette.background.paper,
+				}}
+			>
 				{files.map((file, index) => (
-					<li key={file.name} className="files__item">
-						<div className="file__data">
-							<div className="file__icon">{getFileExtension && getFileExtension(file.name)}</div>
-							<span className="file__name">{cutFileName(file.name)}</span>
-						</div>
-						<div className="file__controls">
-							<Delete
-								onClick={() => handleRemove && handleRemove(index)}
-								sx={{
-									cursor: 'pointer',
-								}}
-							/>
-							<span className="file__status">{file.status}</span>
-						</div>
-					</li>
+					<ListItem
+						key={file.name}
+						sx={{
+							display: 'flex',
+							justifyContent: 'space-between',
+							alignItems: 'center',
+						}}
+					>
+						<ListItemIcon
+							sx={{
+								color: theme.palette.info.main,
+							}}
+						>
+							{getFileExtension && getFileExtension(file.name)}
+						</ListItemIcon>
+						<ListItemText
+							primary={cutFileName(file.name)}
+							secondary={`${(file.size / 1024 / 1024).toFixed(2)} MB`}
+							sx={{ color: theme.palette.text.secondary }}
+							primaryTypographyProps={{ color: theme.palette.text.primary }}
+						/>
+
+						{file.status === 'uploaded' && (
+							<Tooltip title={`Status: ${file.status}`}>
+								<CheckIcon sx={{ color: theme.palette.success.main, minWidth: '56px' }} />
+							</Tooltip>
+						)}
+						<Clear
+							onClick={() => handleRemove(index)}
+							sx={{
+								cursor: 'pointer',
+								color: theme.palette.error.main,
+								'&:hover': {
+									color: 'error',
+								},
+							}}
+						/>
+					</ListItem>
 				))}
-			</ul>
+			</List>
 			<Button onClick={submitButtonCallback} sx={{ margin: '5px' }}>
 				Submit
 			</Button>

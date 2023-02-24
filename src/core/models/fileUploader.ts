@@ -2,5 +2,5 @@ export interface File {
 	name: string;
 	type: string;
 	size: number;
-	status: string;
+	status: string | JSX.Element;
 }

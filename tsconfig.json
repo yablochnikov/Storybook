@@ -22,5 +22,9 @@
   },
   "include": [
     "src"
+  ],
+  "types": [
+    "@material-ui/core",
+    "@material-ui/styles"
   ]
 }

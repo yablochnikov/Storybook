@@ -1,11 +1,9 @@
 import { ChangeEvent, DragEvent, FC, ReactElement, useRef, useState } from 'react';
-import './FileUploader.css';
-import { Box, SxProps, Typography } from '@mui/material';
+import { useTheme } from '@mui/system';
+import { Box, Grid, SxProps, Typography } from '@mui/material';
 import { FileUpload } from '@mui/icons-material';
-
 import { File } from '../../core/models/fileUploader';
 import FilesList from './FilesList';
-
 import { getFileExtension } from '../../core/helpers/FileUploader';
 
 interface FileUploaderProps {
@@ -27,6 +25,7 @@ const FileUploader: FC<FileUploaderProps> = ({
 	dragDropContainerStyles,
 	uploaderTitleStyles,
 }) => {
+	const theme: any = useTheme();
 	const [files, setFiles] = useState<File[]>([]);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,7 +44,7 @@ const FileUploader: FC<FileUploaderProps> = ({
 			name: file.name,
 			type: file.type,
 			size: file.size,
-			status: 'Uploaded',
+			status: 'uploaded',
 		}));
 
 		setFiles(prevFiles => [...prevFiles, ...newFiles]);
@@ -69,36 +68,75 @@ const FileUploader: FC<FileUploaderProps> = ({
 	};
 
 	return (
-		<Box className="uploader" sx={{ ...uploaderRootStyles }}>
-			<Box className="drag-drop-container" sx={{ ...dragDropContainerStyles }}>
-				<div
-					className="drag-drop"
-					onDrop={handleDrop}
-					onDragOver={event => event.preventDefault()}
-					onClick={handleDragDropClick}
-				>
-					<input ref={fileInputRef} id="file__input" type="file" multiple onChange={handleFileSelect} />
-					<FileUpload
+		<Box sx={{ flexGrow: 1, ...uploaderRootStyles }}>
+			<Grid container spacing={2}>
+				<Grid item xs={12}>
+					<Box
 						sx={{
-							color: '#93B0B3',
-							width: '36px',
-							height: '36px',
+							display: 'flex',
+							alignItems: 'center',
+							border: `2px dashed ${theme.palette.primary.main}`,
+							backgroundColor: theme.palette.background.default,
+							borderRadius: 5,
+							cursor: 'pointer',
+							height: '200px',
+							width: '100%',
+							...dragDropContainerStyles,
 						}}
-					/>
-					<Typography sx={{ ...uploaderTitleStyles }}>{title}</Typography>
-				</div>
-			</Box>
-			{files.length > 0 && (
-				<FilesList
-					files={files}
-					handleRemove={handleRemove}
-					handleRemoveAll={handleRemoveAll}
-					getFileExtension={getFileExtension}
-					removeButtonLabel={removeButtonLabel}
-					title={listTitle}
-					submitButtonCallback={submitButtonCallback}
-				/>
-			)}
+					>
+						<Box
+							onDrop={handleDrop}
+							onDragOver={event => event.preventDefault()}
+							onClick={handleDragDropClick}
+							sx={{
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+								flexDirection: 'column',
+								width: '100%',
+								height: '100%',
+							}}
+						>
+							<input
+								ref={fileInputRef}
+								type="file"
+								multiple
+								onChange={handleFileSelect}
+								style={{ display: 'none' }}
+							/>
+							<FileUpload
+								sx={{
+									color: theme.palette.primary.main,
+									width: '36px',
+									height: '36px',
+								}}
+							/>
+							<Typography
+								sx={{
+									color: theme.palette.text.primary,
+									fontWeight: theme.typography.fontWeightBold,
+									...uploaderTitleStyles,
+								}}
+							>
+								{title}
+							</Typography>
+						</Box>
+					</Box>
+				</Grid>
+				{files.length > 0 && (
+					<Grid item xs={12}>
+						<FilesList
+							files={files}
+							handleRemove={handleRemove}
+							handleRemoveAll={handleRemoveAll}
+							getFileExtension={getFileExtension}
+							removeButtonLabel={removeButtonLabel}
+							title={listTitle}
+							submitButtonCallback={submitButtonCallback}
+						/>
+					</Grid>
+				)}
+			</Grid>
 		</Box>
 	);
 };

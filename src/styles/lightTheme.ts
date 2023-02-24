@@ -2,24 +2,94 @@ import { createTheme } from '@mui/material/styles';
 
 export const lightTheme = createTheme({
 	palette: {
+		mode: 'light',
 		primary: {
-			light: '#63b8ff',
-			main: '#0989e3',
-			dark: '#005db0',
-			contrastText: '#000',
+			main: '#1877f2',
+			contrastText: '#ffffff',
 		},
 		secondary: {
-			main: '#4db6ac',
-			light: '#82e9de',
-			dark: '#00867d',
-			contrastText: '#000',
+			main: '#42b72a',
+			contrastText: '#ffffff',
+		},
+		error: {
+			main: '#f02849',
+			contrastText: '#ffffff',
+		},
+		warning: {
+			main: '#faa61a',
+			contrastText: '#ffffff',
+		},
+		info: {
+			main: '#55acee',
+			contrastText: '#ffffff',
 		},
 		success: {
-			main: '#2F9E34',
+			main: '#42b72a',
+			contrastText: '#ffffff',
 		},
+		text: {
+			primary: '#1c1e21',
+			secondary: '#65676b',
+			disabled: '#b0b3b8',
+		},
+		background: {
+			default: '#f0f2f5',
+			paper: '#ffffff',
+		},
+		action: {
+			active: '#1c1e21',
+			hover: '#e4e6eb',
+			selected: '#e7f3ff',
+			disabled: '#f0f2f5',
+		},
+		divider: '#e4e6eb',
 	},
 	typography: {
-		fontFamily: 'Source Sans Pro, sans-serif',
+		fontFamily: [
+			'-apple-system',
+			'BlinkMacSystemFont',
+			'Segoe UI',
+			'Roboto',
+			'Oxygen-Sans',
+			'Ubuntu',
+			'Cantarell',
+			'Helvetica Neue',
+			'sans-serif',
+		].join(','),
+		fontWeightLight: 300,
+		fontWeightRegular: 400,
+		fontWeightMedium: 500,
+		fontWeightBold: 700,
+		h1: {
+			fontWeight: 600,
+			fontSize: '2.5rem',
+			lineHeight: 1.2,
+		},
+		h2: {
+			fontWeight: 600,
+			fontSize: '2rem',
+			lineHeight: 1.2,
+		},
+		h3: {
+			fontWeight: 600,
+			fontSize: '1.75rem',
+			lineHeight: 1.2,
+		},
+		h4: {
+			fontWeight: 600,
+			fontSize: '1.5rem',
+			lineHeight: 1.2,
+		},
+		h5: {
+			fontWeight: 600,
+			fontSize: '1.25rem',
+			lineHeight: 1.2,
+		},
+		h6: {
+			fontWeight: 600,
+			fontSize: '1rem',
+			lineHeight: 1.2,
+		},
 	},
 	breakpoints: {
 		values: {
@@ -30,4 +100,5 @@ export const lightTheme = createTheme({
 			xl: 1536,
 		},
 	},
+	spacing: [0, 4, 8, 16, 32, 64],
 });
