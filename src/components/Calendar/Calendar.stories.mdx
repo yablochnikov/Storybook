@@ -1,0 +1,55 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
+import Calendar from './Calendar';
+
+export const DefaultCalendarArgTypes = {
+	displayWeekends: {
+		name: 'displayWeekends',
+		type: { name: 'boolean', required: false },
+		description: 'Display weekends',
+		control: {
+			type: 'boolean',
+		},
+		defaultValue: true,
+	},
+	selectable: {
+		name: 'selectable',
+		type: { name: 'boolean', required: false },
+		description: 'Allows a user to highlight multiple days or timeslots by clicking and dragging.',
+		control: {
+			type: 'boolean',
+		},
+		defaultValue: true,
+	},
+	editable: {
+		name: 'editable',
+		type: { name: 'boolean', required: false },
+		description: 'Determines whether the events on the calendar can be modified.',
+		control: {
+			type: 'boolean',
+		},
+		defaultValue: true,
+	}
+};
+
+<Meta title="MDX/Calendar" component={Calendar} argTypes={DefaultCalendarArgTypes} parameters={{
+	controls: {
+		expanded: true,
+		actions: {
+			handles: ['mouseover', 'click .btn'],
+		},
+	},
+}}
+/>
+
+export const Template = args => {
+	return <Calendar {...args} />;
+}
+
+#### Playground
+
+<Canvas>
+	<Story name="Playground">
+		{Template.bind({})}
+	</Story>
+</Canvas>
+
