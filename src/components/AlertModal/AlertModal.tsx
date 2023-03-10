@@ -37,7 +37,7 @@ const AlertModal: FC<IAlertModalProps> = ({
 	cancelBtnStyles,
 	confirmBtnStyles,
 }) => {
-	const theme: any = useTheme();
+	const theme = useTheme();
 
 	const modalStyle: SxProps = {
 		position: 'absolute',

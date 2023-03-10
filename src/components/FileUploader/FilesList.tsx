@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { Clear } from '@mui/icons-material';
 import CheckIcon from '@mui/icons-material/Check';
-import { useTheme } from '@mui/system';
+import { useTheme } from '@emotion/react';
 import { Box, Button, List, ListItem, ListItemIcon, ListItemText, Tooltip, Typography } from '@mui/material';
 import { File } from '../../core/models/fileUploader';
 import './FilesList.css';
@@ -26,7 +26,7 @@ const FilesList: FC<FilesListProps> = ({
 	removeButtonLabel,
 	submitButtonCallback,
 }) => {
-	const theme: any = useTheme();
+	const theme = useTheme();
 
 	return (
 		<Box
