@@ -42,7 +42,7 @@ export const Toast: FC<IToastProps> = ({
 	variant,
 	stylesRoot,
 }) => {
-	const theme: any = useTheme();
+	const theme = useTheme();
 	return (
 		<Snackbar
 			open={showToast}

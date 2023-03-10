@@ -32,7 +32,7 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 	position,
 	children,
 }) => {
-	const theme: any = useTheme();
+	const theme = useTheme();
 	const refDropdown = useRef<HTMLDivElement>(null);
 	const [dropdownHeight, setDropdownHeight] = useState(0);
 	const [isOpen, setOpen] = useState(false);

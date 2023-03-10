@@ -1,6 +1,10 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, Theme as MuiTheme } from '@mui/material/styles';
 
-export const lightTheme = createTheme({
+declare module '@emotion/react' {
+	export interface Theme extends MuiTheme {}
+}
+
+export const lightTheme: MuiTheme = createTheme({
 	palette: {
 		mode: 'light',
 		primary: {
