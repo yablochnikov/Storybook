@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
 	"name": "react-material-lib",
 	"version": "0.1.0",
 	"private": true,
@@ -101,7 +100,6 @@
 			}
 		]
 	}
-=======
   "name": "react-material-lib",
   "version": "0.1.0",
   "private": true,
@@ -197,5 +195,4 @@
   },
   "readme": "ERROR: No README data found!",
   "_id": "react-material-lib@0.1.0"
->>>>>>> refs/remotes/origin/master
 }
