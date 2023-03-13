@@ -28,8 +28,39 @@ export const DefaultCalendarArgTypes = {
 			type: 'boolean',
 		},
 		defaultValue: true,
-	}
-};
+	},
+	initialDate: {
+		name: 'initialDate',
+		type: { name: 'date', required: false },
+		description: 'The initial date displayed when the calendar first loads. This value can be anything that can parse into a Date, "2014-02-01".',
+		control: {
+			type: 'date',
+		}
+	},
+	buttonText: {
+		name: 'buttonText',
+		type: { name: 'object', required: false },
+		description: 'Text that will be displayed on buttons of the headerToolbar/footerToolbar.',
+		defaultValue: {
+			today: 'Today',
+			month: 'Month',
+			week: 'Week',
+			day: 'Day',
+			list: 'List',
+		},
+	},
+	buttonIcons: {
+		name: 'buttonIcons',
+		type: { name: 'object', required: false },
+		description: 'Icons that will be displayed on buttons of the headerToolbar/footerToolbar. You can use icons from [Bootstrap](https://icons.getbootstrap.com/)',
+		defaultValue: {
+			prev: 'arrow-left',
+			next: 'arrow-right',
+			prevYear: 'left-double-arrow',
+			nextYear: 'right-double-arrow',
+		},
+	},
+}
 
 <Meta title="MDX/Calendar" component={Calendar} argTypes={DefaultCalendarArgTypes} parameters={{
 	controls: {
@@ -45,10 +76,12 @@ export const Template = args => {
 	return <Calendar {...args} />;
 }
 
-#### Playground
+#### Default Calendar
+
+Calendar was created using [FullCalendar](https://fullcalendar.io/).
 
 <Canvas>
-	<Story name="Playground">
+	<Story name="Default">
 		{Template.bind({})}
 	</Story>
 </Canvas>

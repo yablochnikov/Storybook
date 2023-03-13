@@ -10,11 +10,12 @@ import { DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import './Calendar.css';
 
-type CustomCalendarProps = {
-	displayWeekends: boolean;
-	selectable: boolean;
-	editable: boolean;
-};
+interface CustomCalendarProps {
+	displayWeekends?: boolean;
+	selectable?: boolean;
+	editable?: boolean;
+	initialDate?: string;
+}
 
 type Event = {
 	id: string;
@@ -114,7 +115,7 @@ const reducer = (state: typeof initialState, action: DialogAction): typeof initi
 	}
 };
 
-const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editable }) => {
+const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editable, ...props }) => {
 	const [events, setEvents] = useState<Event[]>([
 		{
 			id: '1',
@@ -208,6 +209,7 @@ const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editab
 				editable={editable}
 				select={handleSelect}
 				eventClick={handleEventClick}
+				{...props}
 			/>
 			<Dialog open={dialogProperties.open} onClose={handleCloseDialog}>
 				<DialogTitle>{dialogProperties.title}</DialogTitle>
