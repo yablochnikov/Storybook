@@ -22,15 +22,15 @@ interface IMultiDropdownProps {
 }
 
 export const MultiDropdown: FC<IMultiDropdownProps> = ({
-														   placeholder,
-														   items,
-														   icon,
-														   isExpanded,
-														   disabled,
-														   dropdownStylesRoot,
-														   position,
-														   children,
-													   }) => {
+	placeholder,
+	items,
+	icon,
+	isExpanded,
+	disabled,
+	dropdownStylesRoot,
+	position,
+	children,
+}) => {
 	const theme = useTheme();
 	const refDropdown = useRef<HTMLDivElement>(null);
 	const [dropdownHeight, setDropdownHeight] = useState(0);
@@ -119,7 +119,7 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 										<Typography>{item.value}</Typography>
 									</AccordionSummary>
 								</Accordion>
-							),
+							)
 						)
 					) : (
 						<Accordion disableGutters>
