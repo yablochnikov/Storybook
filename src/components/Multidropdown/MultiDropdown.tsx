@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/system';
-
 import MultipleDropdownItem from './MultipleDropdownItem';
 
 export interface IDropdownItem {
