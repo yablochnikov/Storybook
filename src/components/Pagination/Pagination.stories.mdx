@@ -1,0 +1,87 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
+import Pagination from './Pagination';
+
+export const DefaultPaginationArgTypes = {
+	items: {
+		name: 'items',
+		description: 'Array of elements which you want to display',
+	},
+	itemsPerPage: {
+		name: 'itemsPerPage',
+		description: 'Number of items to display per page',
+		defaultValue: 5,
+		control: {
+			type: 'number'
+		}
+	},
+	renderItem: {
+		name: 'renderItem',
+		description: 'function that renders each item. Example: `(item) => <div>{item}</div>`',
+		action: 'renderItem',
+	},
+	color: {
+		name: 'color',
+		description: 'Color of the pagination buttons',
+		control: {
+			type: 'select',
+			options: ['primary', 'secondary', 'success', 'error', 'warning', 'info',]
+		},
+		defaultValue: 'primary',
+	},
+	size: {
+		name: 'size',
+		description: 'Size of the pagination buttons',
+		control: {
+			type: 'select',
+			options: ['small', 'medium', 'large']
+		},
+		defaultValue: 'medium',
+	},
+	shape: {
+		name: 'shape',
+		description: 'Shape of the pagination buttons',
+		control: {
+			type: 'select',
+			options: ['rounded', 'square']
+		},
+		defaultValue: 'rounded',
+	},
+	sx: {
+		name: 'sx',
+		description: 'The system prop that allows defining system overrides as well as additional CSS styles.',
+		control: { type: 'object' }
+	},
+	variant: {
+		name: 'variant',
+		description: 'The variant to use.',
+		control: {
+			type: 'select',
+			options: ['text', 'outlined']
+		},
+		defaultValue: 'text',
+	},
+	itemsWrapperStyles: {
+		name: 'itemsWrapperStyles',
+		description: 'Styles for the wrapper of the items',
+		control: { type: 'object' }
+	},
+}
+
+
+<Meta title="Hooks/Pagination" component={Pagination} argTypes={DefaultPaginationArgTypes} parameters={{
+	controls: {
+		expanded: true,
+	},
+}}
+/>
+
+export const Template = args => {
+	const items = Array.from({ length: 10 }, (_, i) => ({ id: i, name: `Item ${i}` }));
+	return <Pagination {...args} items={items} renderItem={(item) => <div key={item.id}>{item.name}</div>} />;
+}
+
+<Canvas>
+	<Story name="Playground">
+		{Template.bind({})}
+	</Story>
+</Canvas>
