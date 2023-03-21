@@ -8,7 +8,7 @@ import {
 	PaginationPropsSizeOverrides,
 	PaginationPropsVariantOverrides,
 } from '@mui/material/Pagination/Pagination';
-
+import PaginationSkeleton from './PaginationSkeleton';
 import { usePagination } from '../../hooks/usePagination';
 
 export interface PaginationProps<T> {
@@ -26,6 +26,7 @@ export interface PaginationProps<T> {
 	sx?: SxProps<Theme>;
 	itemsWrapperStyles?: SxProps<Theme>;
 	variant?: OverridableStringUnion<'text' | 'outlined', PaginationPropsVariantOverrides>;
+	isSkeleton?: boolean;
 }
 
 const Pagination = <T,>({
@@ -39,16 +40,37 @@ const Pagination = <T,>({
 	variant,
 	sx,
 	itemsWrapperStyles,
+	isSkeleton,
 }: PaginationProps<T>) => {
 	const { displayedItems, changePage, currentPage, totalPages } = usePagination({
 		items,
 		itemsPerPage,
 	});
+
+	if (isSkeleton) {
+		return (
+			<>
+				<PaginationSkeleton itemsPerPage={itemsPerPage} itemsWrapperStyles={itemsWrapperStyles} />
+				<MuiPagination
+					sx={{ display: 'flex', justifyContent: 'center', marginTop: '15px', ...sx }}
+					count={totalPages}
+					page={currentPage}
+					onChange={changePage}
+					color={color}
+					size={size}
+					shape={shape}
+					variant={variant}
+					getItemAriaLabel={getItemAriaLabel}
+				/>
+			</>
+		);
+	}
+
 	return (
 		<>
 			<Box sx={itemsWrapperStyles}>{displayedItems.map(item => renderItem(item))}</Box>
 			<MuiPagination
-				sx={{ display: 'flex', justifyContent: 'center', ...sx }}
+				sx={{ display: 'flex', justifyContent: 'center', marginTop: '15px', ...sx }}
 				count={totalPages}
 				page={currentPage}
 				onChange={changePage}
