@@ -47,6 +47,15 @@ export const DefaultFileUploaderArgTypes = {
 		},
 		defaultValue: 'Remove all',
 	},
+	isSkeleton: {
+		name: 'isSkeleton',
+		type: { name: 'boolean', required: false },
+		description: 'Show skeleton state',
+		control: {
+			type: 'boolean',
+		},
+		defaultValue: false,
+	},
 };
 
 <Meta title="MDX/FileUploader" component={FileUploader} argTypes={DefaultFileUploaderArgTypes} parameters={{
@@ -71,3 +80,10 @@ export const Template = args => {
 	</Story>
 </Canvas>
 
+# Skeleton
+
+<Canvas>
+	<Story name="Skeleton" args={{ isSkeleton: true }}>
+		{Template.bind({})}
+	</Story>
+</Canvas>
