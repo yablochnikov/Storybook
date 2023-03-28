@@ -1,5 +1,6 @@
 import { Box, Pagination as MuiPagination } from '@mui/material';
 import { OverridableStringUnion } from '@mui/types';
+import { keyframes } from '@emotion/react';
 import * as React from 'react';
 import { SxProps } from '@mui/system';
 import { Theme } from '@mui/material/styles';
@@ -8,8 +9,21 @@ import {
 	PaginationPropsSizeOverrides,
 	PaginationPropsVariantOverrides,
 } from '@mui/material/Pagination/Pagination';
-import PaginationSkeleton from './PaginationSkeleton';
 import { usePagination } from '../../hooks/usePagination';
+
+const skeletonAnimation = keyframes`
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+`;
 
 export interface PaginationProps<T> {
 	items: T[];
@@ -49,20 +63,23 @@ const Pagination = <T,>({
 
 	if (isSkeleton) {
 		return (
-			<>
-				<PaginationSkeleton itemsPerPage={itemsPerPage} itemsWrapperStyles={itemsWrapperStyles} />
-				<MuiPagination
-					sx={{ display: 'flex', justifyContent: 'center', marginTop: '15px', ...sx }}
-					count={totalPages}
-					page={currentPage}
-					onChange={changePage}
-					color={color}
-					size={size}
-					shape={shape}
-					variant={variant}
-					getItemAriaLabel={getItemAriaLabel}
-				/>
-			</>
+			<MuiPagination
+				disabled
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					marginTop: '15px',
+					button: {
+						animation: `${skeletonAnimation} 1.5s ease-in-out infinite`,
+					},
+					...sx,
+				}}
+				count={5}
+				size={size}
+				shape={shape}
+				variant={variant}
+				page={0}
+			/>
 		);
 	}
 
