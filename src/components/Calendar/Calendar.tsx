@@ -9,12 +9,14 @@ import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitl
 import { DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import './Calendar.css';
+import CalendarSkeleton from './CalendarSkeleton';
 
 interface CustomCalendarProps {
 	displayWeekends?: boolean;
 	selectable?: boolean;
 	editable?: boolean;
 	initialDate?: string;
+	isSkeleton?: boolean;
 }
 
 type Event = {
@@ -115,7 +117,7 @@ const reducer = (state: typeof initialState, action: DialogAction): typeof initi
 	}
 };
 
-const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editable, ...props }) => {
+const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editable, isSkeleton, ...props }) => {
 	const [events, setEvents] = useState<Event[]>([
 		{
 			id: '1',
@@ -191,6 +193,10 @@ const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editab
 		setEvents([...updatedEvents]);
 		handleCloseDialog();
 	};
+
+	if (isSkeleton) {
+		return <CalendarSkeleton />;
+	}
 
 	return (
 		<Box>
