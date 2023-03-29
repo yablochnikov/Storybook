@@ -26,7 +26,6 @@ export const DefaultPaginationArgTypes = {
 			type: 'select',
 			options: ['primary', 'secondary', 'success', 'error', 'warning', 'info',]
 		},
-		defaultValue: 'primary',
 	},
 	size: {
 		name: 'size',
@@ -65,6 +64,12 @@ export const DefaultPaginationArgTypes = {
 		description: 'Styles for the wrapper of the items',
 		control: { type: 'object' }
 	},
+	isSkeleton: {
+		name: 'isSkeleton',
+		description: 'If true, the pagination will be displayed as a skeleton',
+		control: { type: 'boolean' },
+		defaultValue: false,
+	}
 }
 
 
@@ -80,8 +85,20 @@ export const Template = args => {
 	return <Pagination {...args} items={items} renderItem={(item) => <div key={item.id}>{item.name}</div>} />;
 }
 
+# Pagination
+
+Pagination component allows for easy navigation between pages of content, with options to customize the number of visible pages and the ability to jump to specific pages.
+
 <Canvas>
 	<Story name="Playground">
+		{Template.bind({})}
+	</Story>
+</Canvas>
+
+# Skeleton
+
+<Canvas>
+	<Story name="Skeleton" args={{ isSkeleton: true }}>
 		{Template.bind({})}
 	</Story>
 </Canvas>
