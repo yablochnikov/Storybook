@@ -5,6 +5,7 @@ import { FileUpload } from '@mui/icons-material';
 import { File } from '../../core/models/fileUploader';
 import FilesList from './FilesList';
 import { getFileExtension } from '../../core/helpers/FileUploader';
+import FileUploaderSkeleton from './FileUploaderSkeleton';
 
 interface FileUploaderProps {
 	title: string | ReactElement;
@@ -14,6 +15,7 @@ interface FileUploaderProps {
 	uploaderRootStyles: SxProps;
 	dragDropContainerStyles: SxProps;
 	uploaderTitleStyles: SxProps;
+	isSkeleton?: boolean;
 }
 
 const FileUploader: FC<FileUploaderProps> = ({
@@ -24,6 +26,7 @@ const FileUploader: FC<FileUploaderProps> = ({
 	uploaderRootStyles,
 	dragDropContainerStyles,
 	uploaderTitleStyles,
+	isSkeleton = false,
 }) => {
 	const theme: any = useTheme();
 	const [files, setFiles] = useState<File[]>([]);
@@ -66,6 +69,10 @@ const FileUploader: FC<FileUploaderProps> = ({
 	const handleRemoveAll = () => {
 		setFiles([]);
 	};
+
+	if (isSkeleton) {
+		return <FileUploaderSkeleton />;
+	}
 
 	return (
 		<Box sx={{ flexGrow: 1, ...uploaderRootStyles }}>
