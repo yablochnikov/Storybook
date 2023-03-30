@@ -126,6 +126,14 @@ export const DefaultDropdownArgTypes = {
 		name: 'Children',
 		description: "Children element that will be display inside dropdown, DON'T pass if you passing 'items'",
 	},
+	isSkeleton: {
+		name: 'IsSkeleton',
+		description: 'If true, show skeleton state.',
+		control: {
+			type: 'boolean',
+		},
+		defaultValue: false,
+	},
 };
 
 <Meta title="MDX/MultiDropdown" component={MultiDropdown} argTypes={DefaultDropdownArgTypes} parameters={{
@@ -201,5 +209,13 @@ By passing `dropdownStylesRoot` and prop you can change default style of dropdow
 	</Story>
 </Canvas>
 
+#### Skeleton
 
+By passing `isSkeleton` prop you can create skeleton state of dropdown
+
+<Canvas>
+	<Story name="Skeleton" args={{ isSkeleton: true }}>
+		{Template.bind({})}
+	</Story>
+</Canvas>
 

@@ -2,6 +2,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/system';
 import MultipleDropdownItem from './MultipleDropdownItem';
+import MultiDropdownSkeleton from './MultiDropdownSkeleton';
 
 export interface IDropdownItem {
 	id: number;
@@ -19,6 +20,7 @@ interface IMultiDropdownProps {
 	dropdownStylesRoot?: {};
 	position?: string;
 	children?: JSX.Element | JSX.Element[] | string;
+	isSkeleton?: boolean;
 }
 
 export const MultiDropdown: FC<IMultiDropdownProps> = ({
@@ -30,6 +32,7 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 	dropdownStylesRoot,
 	position,
 	children,
+	isSkeleton = false,
 }) => {
 	const theme = useTheme();
 	const refDropdown = useRef<HTMLDivElement>(null);
@@ -45,6 +48,10 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 	const handleClick = () => {
 		setOpen(isOpen => !isOpen);
 	};
+
+	if (isSkeleton) {
+		return <MultiDropdownSkeleton styles={dropdownStylesRoot} />;
+	}
 
 	return (
 		<Accordion
