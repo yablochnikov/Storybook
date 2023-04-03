@@ -9,12 +9,15 @@ import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitl
 import { DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import './Calendar.css';
+import CalendarSkeleton from './CalendarSkeleton';
 
-type CustomCalendarProps = {
-	displayWeekends: boolean;
-	selectable: boolean;
-	editable: boolean;
-};
+interface CustomCalendarProps {
+	displayWeekends?: boolean;
+	selectable?: boolean;
+	editable?: boolean;
+	initialDate?: string;
+	isSkeleton?: boolean;
+}
 
 type Event = {
 	id: string;
@@ -114,7 +117,7 @@ const reducer = (state: typeof initialState, action: DialogAction): typeof initi
 	}
 };
 
-const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editable }) => {
+const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editable, isSkeleton, ...props }) => {
 	const [events, setEvents] = useState<Event[]>([
 		{
 			id: '1',
@@ -191,6 +194,10 @@ const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editab
 		handleCloseDialog();
 	};
 
+	if (isSkeleton) {
+		return <CalendarSkeleton />;
+	}
+
 	return (
 		<Box>
 			<FullCalendar
@@ -208,6 +215,7 @@ const Calendar: FC<CustomCalendarProps> = ({ displayWeekends, selectable, editab
 				editable={editable}
 				select={handleSelect}
 				eventClick={handleEventClick}
+				{...props}
 			/>
 			<Dialog open={dialogProperties.open} onClose={handleCloseDialog}>
 				<DialogTitle>{dialogProperties.title}</DialogTitle>

@@ -1,0 +1,81 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
+import VirtualizedList from './Virtualizer.tsx';
+
+
+export const DefaultVirtualizerArgTypes = {
+	items: {
+		name: 'items',
+		description: 'Array of elements which you want to display',
+	},
+	type: {
+		name: 'type',
+		options: ['vertical', 'horizontal'],
+		control: { type: 'select', },
+		defaultValue: 'vertical',
+	},
+	renderItem: {
+		name: 'renderItem',
+		description: 'function that renders each item. Example: `(item) => <div>{item}</div>`',
+	},
+	itemSize: {
+		name: 'itemSize',
+		description: 'Size of each item in pixels. If you are selecting `vertical` type then it will be height of each item and if you are selecting `horizontal` type then it will be width of each item',
+		control: {
+			type: 'number'
+		},
+		defaultValue: 50,
+	},
+	overScan: {
+		name: 'overScan',
+		description: 'Number of items to render before and after the visible area. This is to prevent the user from seeing empty space while scrolling.',
+		defaultValue: 20,
+		control: { type: 'number' }
+	}
+};
+
+<Meta title="Hooks/Virtualizer" component={VirtualizedList} argTypes={DefaultVirtualizerArgTypes} parameters={{
+	controls: {
+		expanded: true,
+	},
+}}
+/>
+
+export const Template = args => {
+	const items = [...Array(10000)].map((_, i) => `Item ${i}`);
+	return (
+		<VirtualizedList
+			items={items}
+			renderItem={(item) => <div>{item}</div>}
+			{...args}
+		/>
+	);
+}
+
+# Vitrualizer: Rendering Large Lists Efficiently
+Virtualizer is an efficient technique to render large lists of items in web applications.
+It renders only the items that are visible in the viewport and reuses the items that are scrolled out of the viewport.
+This approach significantly improves the performance of your application, even when dealing with a list of 10000 items or more.
+
+# How Virtualizer Works
+Virtualizer is designed to reduce the number of items that are rendered at any given time.
+Instead of rendering all the items at once, Virtualizer renders only the items that are visible in the viewport.
+The viewport is the visible area of the web page, and Virtualizer checks whether an item is within the viewport before rendering it.
+
+When an item is scrolled out of the viewport, Virtualizer removes it from the DOM and reuses it when a new item comes into view.
+This means that Virtualizer only renders the items that are needed, reducing the load on the browser and improving the performance of your application.
+# Horizontal
+
+<Canvas>
+	<Story name="Horizontal">
+		{Template.bind({})}
+	</Story>
+</Canvas>
+
+
+# Vertical
+
+<Canvas>
+	<Story name="Vertical" args={{ type: 'Vertical' }}>
+		{Template.bind({})}
+	</Story>
+</Canvas>
