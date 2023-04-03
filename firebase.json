@@ -1,12 +1,26 @@
 {
-	"hosting": {
-		"public": "storybook-static",
-		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-		"rewrites": [
-			{
-				"source": "**",
-				"destination": "/storybook-static/index.html"
-			}
-		]
-	}
+	"hosting": [
+		{
+			"target": "dev",
+			"public": "storybook-static",
+			"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+			"rewrites": [
+				{
+					"source": "**",
+					"destination": "/storybook-static/index.html"
+				}
+			]
+		},
+		{
+			"target": "prod",
+			"public": "storybook-static",
+			"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+			"rewrites": [
+				{
+					"source": "**",
+					"destination": "/storybook-static/index.html"
+				}
+			]
+		}
+	]
 }

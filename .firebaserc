@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "five-react-material-library"
-  }
+  },
+  "targets": {
+    "five-react-material-library": {
+      "hosting": {
+        "prod": [
+          "five-react-material-library"
+        ],
+        "dev": [
+          "five-react-lib-dev"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
