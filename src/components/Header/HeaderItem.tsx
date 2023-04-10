@@ -1,22 +1,22 @@
 import React, { FC } from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import { Button, MenuItem } from '@mui/material';
-import Menu, { MenuProps } from '@mui/material/Menu';
+import { MenuItem, Menu } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-interface IMenuItem {
+interface IHeaderItem {
 	title: string;
-	url?: string;
 	onClick?: () => void;
-	children?: IMenuItem[];
+	children?: IHeaderItem[];
 }
 
-const CustomizedMenus: FC<IMenuItem> = ({ title, url, onClick, children }) => {
+const HeaderItem: FC<IHeaderItem> = ({ title, onClick, children }) => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
-	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+	const handleClick = (onClick: (() => void) | undefined, event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
+		if (onClick) {
+			onClick();
+		} // if statement cause of lint settings
 	};
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -36,7 +36,7 @@ const CustomizedMenus: FC<IMenuItem> = ({ title, url, onClick, children }) => {
 						backgroundColor: 'rgba(0,0,0,0.1)',
 					},
 				}}
-				onClick={handleClick}
+				onClick={e => handleClick(onClick, e)}
 			>
 				{title}
 				{children && (open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />)}
@@ -61,7 +61,7 @@ const CustomizedMenus: FC<IMenuItem> = ({ title, url, onClick, children }) => {
 					}}
 				>
 					{children?.map(item => (
-						<CustomizedMenus {...item} />
+						<HeaderItem {...item} key={item.title} />
 					))}
 				</Menu>
 			)}
@@ -69,4 +69,4 @@ const CustomizedMenus: FC<IMenuItem> = ({ title, url, onClick, children }) => {
 	);
 };
 
-export default CustomizedMenus;
+export default HeaderItem;

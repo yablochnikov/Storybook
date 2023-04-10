@@ -1,97 +1,117 @@
-import { FC, useState, Fragment, MouseEvent } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { IconButton, Menu, MenuItem, useMediaQuery, Theme, Box, Button } from '@mui/material';
+import { FC, useState, useEffect } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-interface MenuItem {
-	label: string;
-	onClick: () => void;
-	children?: MenuItem[];
-}
+import SearchIcon from '@mui/icons-material/Search';
+import { Typography, AppBar, Menu, Box, IconButton, Toolbar, InputBase } from '@mui/material';
+import HeaderItem from './HeaderItem';
 
 interface HeaderProps {
 	title: string;
-	menuItems: MenuItem[];
+	menuItems: IMenuItem[];
+	logo?: JSX.Element;
+	search?: boolean;
+	onSearch?: () => void;
+	position?: 'absolute' | 'fixed' | 'relative' | 'static';
 }
 
-const renderMenuItems = (menuItems: MenuItem[]): JSX.Element[] => {
-	return menuItems.map(menuItem => (
-		<Box key={menuItem.label}>
-			<MenuItem
-				onClick={() => {
-					menuItem.onClick();
-				}}
-			>
-				{menuItem.label}
-			</MenuItem>
-			{menuItem.children && renderMenuItems(menuItem.children)}
-		</Box>
-	));
-};
+interface IMenuItem {
+	title: string;
+	onClick?: () => void;
+	children?: IMenuItem[];
+}
 
-const Header: React.FC<HeaderProps> = ({ title, menuItems }) => {
+const Header: FC<HeaderProps> = ({ title, menuItems, logo, search, onSearch, position }) => {
+	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-	const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
-	const [activeMenuItem, setActiveMenuItem] = useState('');
-
-	const handleClick = (event: MouseEvent<HTMLButtonElement>, menuItem?: MenuItem) => {
+	const screenCondition = !isSmallScreen && menuItems.length <= 4;
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
-		if (menuItem) setActiveMenuItem(menuItem.label);
 	};
 
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
 
+	useEffect(() => {
+		const handleResize = () => {
+			setIsSmallScreen(window.innerWidth < 420);
+		};
+
+		handleResize();
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
 	return (
-		<AppBar position="static">
-			<Toolbar>
-				{isSmallScreen || menuItems.length > 5 ? (
-					<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-						<Typography variant="h6" color="inherit">
-							{title}
-						</Typography>
-						<Box>
-							<IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
-								<MenuIcon />
-							</IconButton>
-							<Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-								{renderMenuItems(menuItems)}
-							</Menu>
-						</Box>
-					</Box>
-				) : (
-					<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-						<Typography variant="h6" color="inherit">
-							{title}
-						</Typography>
-						<Box component="ul" sx={{ display: 'flex', alignItems: 'center', margin: 0, padding: 0 }}>
-							{menuItems.map(menuItem => (
-								<Box key={menuItem.label}>
-									<Button
-										aria-label="menu"
-										onClick={e => handleClick(e, menuItem)}
-										sx={{
-											color: 'white',
-											backgroundColor: activeMenuItem === menuItem.label ? '#333' : 'transparent',
-										}}
-										endIcon={menuItem.children && <ExpandMoreIcon />}
-									>
-										{menuItem.label}
-									</Button>
-									{menuItem.children && activeMenuItem === menuItem.label && (
-										<Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-											{renderMenuItems(menuItem.children || [])}
-										</Menu>
-									)}
-								</Box>
-							))}
-						</Box>
+		<AppBar
+			position={position}
+			sx={{
+				padding: '0 1rem',
+			}}
+		>
+			<Toolbar
+				sx={{
+					minHeight: '64px',
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+				}}
+			>
+				{logo && <Box component="div">{logo}</Box>}
+				{title && (
+					<Typography variant="h3" component="div">
+						{title}
+					</Typography>
+				)}
+				{search && (
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'space-around',
+						}}
+					>
+						<InputBase
+							sx={{ marginLet: '15px', color: '#fff', width: '50%' }}
+							placeholder="Search..."
+							inputProps={{ 'aria-label': 'search' }}
+							onChange={onSearch}
+						/>
+						<IconButton type="button" aria-label="search">
+							<SearchIcon sx={{ fill: '#fff' }} />
+						</IconButton>
 					</Box>
 				)}
+				<Box
+					component="ul"
+					sx={{
+						display: 'flex',
+						margin: 0,
+						padding: 0,
+					}}
+				>
+					{screenCondition ? (
+						menuItems.map(item => <HeaderItem {...item} />)
+					) : (
+						<>
+							<IconButton aria-controls="header-menu" aria-haspopup="true" onClick={handleClick}>
+								<MenuIcon
+									sx={{
+										fill: 'white',
+									}}
+								/>
+							</IconButton>
+							<Menu open={Boolean(anchorEl)} onClose={handleClose} anchorEl={anchorEl} id="header-menu">
+								{menuItems.map(item => (
+									<HeaderItem {...item} key={item.title} />
+								))}
+							</Menu>
+						</>
+					)}
+				</Box>
 			</Toolbar>
 		</AppBar>
 	);
