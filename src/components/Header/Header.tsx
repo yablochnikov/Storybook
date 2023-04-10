@@ -104,7 +104,7 @@ const Header: FC<HeaderProps> = ({ title, menuItems, logo, search, onSearch, pos
 									}}
 								/>
 							</IconButton>
-							<Menu open={Boolean(anchorEl)} onClose={handleClose} anchorEl={anchorEl} id="header-menu">
+							<Menu open={!!anchorEl} onClose={handleClose} anchorEl={anchorEl} id="header-menu">
 								{menuItems.map(item => (
 									<HeaderItem {...item} key={item.title} />
 								))}

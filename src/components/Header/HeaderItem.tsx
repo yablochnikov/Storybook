@@ -11,7 +11,6 @@ interface IHeaderItem {
 
 const HeaderItem: FC<IHeaderItem> = ({ title, onClick, children }) => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-	const open = Boolean(anchorEl);
 	const handleClick = (onClick: (() => void) | undefined, event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 		if (onClick) {
@@ -39,7 +38,7 @@ const HeaderItem: FC<IHeaderItem> = ({ title, onClick, children }) => {
 				onClick={e => handleClick(onClick, e)}
 			>
 				{title}
-				{children && (open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />)}
+				{children && (!!anchorEl ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />)}
 			</MenuItem>
 			{children && (
 				<Menu
@@ -47,7 +46,7 @@ const HeaderItem: FC<IHeaderItem> = ({ title, onClick, children }) => {
 						boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.2)',
 					}}
 					anchorEl={anchorEl}
-					open={open}
+					open={!!anchorEl}
 					onClose={handleClose}
 					onMouseLeave={handleClose}
 					elevation={0}
