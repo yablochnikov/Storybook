@@ -20,9 +20,11 @@ interface IMenuItem {
 }
 
 const Header: FC<HeaderProps> = ({ title, menuItems, logo, search, onSearch, position }) => {
-	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+
 	const screenCondition = !isSmallScreen && menuItems.length <= 4;
+
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};

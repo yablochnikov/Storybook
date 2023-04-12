@@ -11,11 +11,9 @@ interface IHeaderItem {
 
 const HeaderItem: FC<IHeaderItem> = ({ title, onClick, children }) => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-	const handleClick = (onClick: (() => void) | undefined, event: React.MouseEvent<HTMLElement>) => {
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
-		if (onClick) {
-			onClick();
-		} // if statement cause of lint settings
+		onClick?.();
 	};
 	const handleClose = () => {
 		setAnchorEl(null);
@@ -35,7 +33,7 @@ const HeaderItem: FC<IHeaderItem> = ({ title, onClick, children }) => {
 						backgroundColor: 'rgba(0,0,0,0.1)',
 					},
 				}}
-				onClick={e => handleClick(onClick, e)}
+				onClick={handleClick}
 			>
 				{title}
 				{children && (!!anchorEl ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />)}
