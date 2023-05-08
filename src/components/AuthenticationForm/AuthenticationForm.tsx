@@ -7,9 +7,9 @@ interface AuthenticationFormTypes {
 	formTitle: string;
 	googleLabel: string;
 	centerTitle: string;
-	inputLog: string;
+	labelLog: string;
 	placeholderLog: string;
-	inputPass: string;
+	labelPass: string;
 	placeholderPass: string;
 	submitButtonTitle: string;
 	footerTitle: string;
@@ -19,9 +19,9 @@ const AuthenticationForm: FC<AuthenticationFormTypes> = ({
 	formTitle,
 	googleLabel,
 	centerTitle,
-	inputLog,
+	labelLog,
 	placeholderLog,
-	inputPass,
+	labelPass,
 	placeholderPass,
 	submitButtonTitle,
 	footerTitle,
@@ -41,7 +41,7 @@ const AuthenticationForm: FC<AuthenticationFormTypes> = ({
 				</Box>
 				<Box sx={authenticationStyles.inputContainer}>
 					<Box sx={{ mb: '10px', mt: '10px' }}>
-						<Typography sx={authenticationStyles.inputTitleStyle}>{inputLog}</Typography>
+						<Typography sx={authenticationStyles.inputTitleStyle}>{labelLog}</Typography>
 						<TextField
 							variant="standard"
 							placeholder={placeholderLog}
@@ -49,7 +49,7 @@ const AuthenticationForm: FC<AuthenticationFormTypes> = ({
 						/>
 					</Box>
 					<Box>
-						<Typography sx={authenticationStyles.inputTitleStyle}>{inputPass}</Typography>
+						<Typography sx={authenticationStyles.inputTitleStyle}>{labelPass}</Typography>
 						<TextField
 							variant="standard"
 							placeholder={placeholderPass}
