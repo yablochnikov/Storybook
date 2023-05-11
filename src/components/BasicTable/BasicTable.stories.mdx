@@ -113,6 +113,10 @@ export const Template = args => {
 
 # Basic table
 
+We are using [material-react-table library](https://www.material-react-table.com/), you can find more information about the props in the [documentation](https://www.material-react-table.com/docs/props).
+
 <Canvas>
-	<Story name="Basic table">{Template.bind({})}</Story>
+	<Story name="Basic table" argTypes={TableArgTypes}>
+		{Template.bind({})}
+	</Story>
 </Canvas>

@@ -1,16 +1,12 @@
 import { FC, useMemo } from 'react';
-import { Box } from '@mui/material';
-import MaterialReactTable from 'material-react-table';
+import MaterialReactTable, { MaterialReactTableProps } from 'material-react-table';
 
-type BasicTableProps = {
-	data: any[];
-	columns: any[];
-};
+interface BasicTableProps extends MaterialReactTableProps {}
 
-const BasicTable: FC<BasicTableProps> = ({ columns, data }) => {
+const BasicTable: FC<BasicTableProps> = ({ columns, ...props }) => {
 	const columnsData = useMemo(() => columns, [columns]);
 
-	return <MaterialReactTable columns={columnsData} data={data} />;
+	return <MaterialReactTable columns={columnsData} {...props} />;
 };
 
 export default BasicTable;
