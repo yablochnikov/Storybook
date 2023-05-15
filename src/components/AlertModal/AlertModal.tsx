@@ -2,7 +2,7 @@ import { Box, Modal, Typography } from '@mui/material';
 import { FC } from 'react';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import { SxProps, useTheme } from '@mui/system';
-import { Button } from '../Button/Button';
+import Button from '../Button/Button';
 
 export interface IAlertModalProps {
 	title: string;

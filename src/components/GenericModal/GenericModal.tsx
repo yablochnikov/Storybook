@@ -1,7 +1,7 @@
 import { CSSProperties, FC, useState } from 'react';
 import { Box, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import { Button } from '../Button/Button';
+import Button from '../Button/Button';
 import './GlobalCssGenericModal.css';
 
 interface IModalProps {

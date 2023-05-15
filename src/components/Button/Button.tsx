@@ -6,7 +6,7 @@ type ButtonColor = 'primary' | 'secondary' | 'error' | 'success' | 'info';
 type ButtonVariant = 'text' | 'contained' | 'outlined';
 type ButtonSize = 'small' | 'medium' | 'large';
 
-interface IButtonProps {
+export interface IButtonProps {
 	title?: string;
 	type?: ButtonTypes;
 	size?: ButtonSize;
@@ -20,15 +20,15 @@ interface IButtonProps {
 	styles?: SxProps;
 }
 
-export const Button: FC<IButtonProps> = ({
-	title,
-	btnType,
-	type,
+const Button: FC<IButtonProps> = ({
+	title = 'Button',
+	btnType = 'primary',
+	type = 'button',
 	startIcon,
 	endIcon,
-	disabled,
+	disabled = false,
 	variant = 'contained',
-	size,
+	size = 'medium',
 	icon,
 	clickAction,
 	styles,
@@ -57,3 +57,5 @@ export const Button: FC<IButtonProps> = ({
 		</MuiButton>
 	);
 };
+
+export default Button;
