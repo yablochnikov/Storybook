@@ -64,7 +64,7 @@ const ArgTypes = {
  * Modal dialogs are a common part of user interface design. Here’s one generic reusable modal copmonent that can be used in a variety of contexts throughout.
  */
 const meta: Meta<typeof GenericModal> = {
-	title: 'Modal/Generic modal',
+	title: 'Modals/Generic modal',
 	component: GenericModal,
 	tags: ['autodocs'],
 	argTypes: ArgTypes,

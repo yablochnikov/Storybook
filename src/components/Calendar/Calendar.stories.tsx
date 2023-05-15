@@ -43,7 +43,7 @@ const ArgTypes = {
  * We are using  [FullCalendar](https://fullcalendar.io/) library, you can find more information about the props in the documentation.
  */
 const meta: Meta<typeof Calendar> = {
-	title: 'Components/Calendar',
+	title: 'Layout/Calendar',
 	component: Calendar,
 	tags: ['autodocs'],
 	argTypes: ArgTypes,
