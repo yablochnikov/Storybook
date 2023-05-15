@@ -21,7 +21,7 @@ export interface IButtonProps {
 }
 
 const Button: FC<IButtonProps> = ({
-	title = 'Button',
+	title,
 	btnType = 'primary',
 	type = 'button',
 	startIcon,

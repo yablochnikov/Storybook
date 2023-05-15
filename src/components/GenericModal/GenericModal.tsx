@@ -4,9 +4,9 @@ import { Close } from '@mui/icons-material';
 import Button from '../Button/Button';
 import './GlobalCssGenericModal.css';
 
-interface IModalProps {
+export interface IModalProps {
 	title: string;
-	children: JSX.Element;
+	children: JSX.Element | JSX.Element[] | string;
 	primaryBtnTxt?: string;
 	primaryBtnClick?: () => void;
 	secondaryBtnTxt?: string;
@@ -36,8 +36,7 @@ const mainButtonsAreaStyle = {
 	gap: '10px',
 	justifySelf: 'end',
 };
-
-export const GenericModal: FC<IModalProps> = ({
+const GenericModal: FC<IModalProps> = ({
 	title,
 	children,
 	primaryBtnTxt = 'Save',
@@ -68,7 +67,7 @@ export const GenericModal: FC<IModalProps> = ({
 				{showButtonsSection && (
 					<Box sx={footerStyle}>
 						{showTertiaryBtn && (
-							<Button title={tertiaryBtnTxt} variant="text" clickAction={tertiaryBtnClick} />
+							<Button title={tertiaryBtnTxt} variant="outlined" clickAction={tertiaryBtnClick} />
 						)}
 						<Box sx={mainButtonsAreaStyle}>
 							<Button
@@ -85,3 +84,5 @@ export const GenericModal: FC<IModalProps> = ({
 		</>
 	);
 };
+
+export default GenericModal;
