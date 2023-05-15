@@ -13,7 +13,7 @@ const ArgTypes = {
 };
 
 /**
- * We are using material-react-table library, you can find more information about the props in the documentation.
+ * We are using [material-react-table library](https://www.material-react-table.com/), you can find more information about the props in the [documentation](https://www.material-react-table.com/docs/props).
  */
 const meta: Meta<typeof BasicTable> = {
 	title: 'Data/Basic table',
