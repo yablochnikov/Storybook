@@ -4,7 +4,7 @@ import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import { SxProps, useTheme } from '@mui/system';
 import { Button } from '../Button/Button';
 
-interface IAlertModalProps {
+export interface IAlertModalProps {
 	title: string;
 	msg?: string;
 	secondaryMsg?: string | JSX.Element | JSX.Element[];
@@ -14,14 +14,12 @@ interface IAlertModalProps {
 	cancelTxt?: string;
 	isDestructive?: boolean;
 	showModal: boolean;
-	closeModal: () => void;
-	modalStyles?: SxProps;
-	modalContentStyles?: SxProps;
-	cancelBtnStyles?: SxProps;
-	confirmBtnStyles?: SxProps;
 }
 
-const AlertModal: FC<IAlertModalProps> = ({
+/**
+ * Alert modal component
+ */
+export const AlertModal: FC<IAlertModalProps> = ({
 	title,
 	msg,
 	secondaryMsg,
@@ -31,11 +29,6 @@ const AlertModal: FC<IAlertModalProps> = ({
 	cancelTxt,
 	isDestructive,
 	showModal,
-	closeModal,
-	modalStyles,
-	modalContentStyles,
-	cancelBtnStyles,
-	confirmBtnStyles,
 }) => {
 	const theme = useTheme();
 
@@ -51,7 +44,6 @@ const AlertModal: FC<IAlertModalProps> = ({
 		boxShadow: 24,
 		padding: theme.spacing(3),
 		display: 'flex',
-		...modalStyles,
 	};
 
 	const iconStyle: SxProps = {
@@ -74,7 +66,7 @@ const AlertModal: FC<IAlertModalProps> = ({
 			open={showModal}
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
-			onClose={closeModal}
+			onClose={onCancel}
 		>
 			<Box sx={modalStyle}>
 				<Box sx={iconStyle}>
@@ -85,7 +77,7 @@ const AlertModal: FC<IAlertModalProps> = ({
 						}}
 					/>
 				</Box>
-				<Box sx={{ width: '100%', ...modalContentStyles }}>
+				<Box sx={{ width: '100%' }}>
 					<Typography id="modal-modal-title" variant="h6" component="h2">
 						{title}
 					</Typography>
@@ -109,13 +101,12 @@ const AlertModal: FC<IAlertModalProps> = ({
 							title={cancelTxt}
 							clickAction={onCancel}
 							variant="outlined"
-							styles={{ marginRight: '10px', ...cancelBtnStyles }}
+							styles={{ marginRight: '10px' }}
 						/>
 						<Button
 							title={confirmTxt}
 							clickAction={onConfirm}
 							btnType={isDestructive ? 'error' : 'success'}
-							styles={{ ...confirmBtnStyles }}
 						/>
 					</Box>
 				</Box>
@@ -123,4 +114,3 @@ const AlertModal: FC<IAlertModalProps> = ({
 		</Modal>
 	);
 };
-export default AlertModal;
