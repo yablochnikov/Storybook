@@ -18,19 +18,19 @@ interface IMultiDropdownProps {
 	disabled?: boolean;
 	items?: IDropdownItem[];
 	dropdownStylesRoot?: {};
-	position?: string;
+	reversed?: boolean;
 	children?: JSX.Element | JSX.Element[] | string;
 	isSkeleton?: boolean;
 }
 
-export const MultiDropdown: FC<IMultiDropdownProps> = ({
+const MultiDropdown: FC<IMultiDropdownProps> = ({
 	placeholder,
 	items,
 	icon,
 	isExpanded,
 	disabled,
 	dropdownStylesRoot,
-	position,
+	reversed,
 	children,
 	isSkeleton = false,
 }) => {
@@ -69,7 +69,7 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 				onClick={handleClick}
 				sx={{
 					'& .MuiSvgIcon-root': {
-						transform: position === 'reversed' ? 'rotate(180deg)' : '',
+						transform: reversed ? 'rotate(180deg)' : '',
 					},
 					backgroundColor: theme.palette.background.paper,
 					color: theme.palette.text.primary,
@@ -94,8 +94,8 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 					boxShadow:
 						'0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
 					zIndex: 1,
-					bottom: position === 'reversed' ? ` ${dropdownHeight}px` : 'auto',
-					top: position === 'default' ? ` ${dropdownHeight}px` : 'auto',
+					bottom: reversed ? ` ${dropdownHeight}px` : 'auto',
+					top: !reversed ? ` ${dropdownHeight}px` : 'auto',
 					'::-webkit-scrollbar': {
 						width: '20px',
 					},
@@ -119,7 +119,7 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 					{items && !children ? (
 						items.map((item, index) =>
 							item.dropdownItems ? (
-								<MultipleDropdownItem {...item} index={index} key={item.id} position={position} />
+								<MultipleDropdownItem {...item} index={index} key={item.id} />
 							) : (
 								<Accordion key={item.id} disableGutters>
 									<AccordionSummary onClick={item.onClick}>
@@ -138,3 +138,5 @@ export const MultiDropdown: FC<IMultiDropdownProps> = ({
 		</Accordion>
 	);
 };
+
+export default MultiDropdown;
