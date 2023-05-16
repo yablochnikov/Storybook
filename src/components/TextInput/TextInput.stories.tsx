@@ -149,6 +149,9 @@ const ArgTypes = {
 	},
 };
 
+/**
+ * The TextInput component is a versatile and user-friendly input field in React that allows users to enter and edit text-based information. It provides a flexible interface for capturing user input and supports various features such as placeholder text, validation, and customizable styling.
+ */
 const meta: Meta<typeof TextInput> = {
 	title: 'Components/TextInput',
 	component: TextInput,

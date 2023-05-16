@@ -110,6 +110,7 @@ const TypesTemplate = (args: IButtonProps) => {
  * By changing the btnType prop you can use different styles of the button.
  */
 export const Types: Story = {
+	args: { ...DefaultButton.args },
 	render: args => <TypesTemplate {...args} />,
 };
 
@@ -127,6 +128,7 @@ const SizesTemplate = (args: IButtonProps) => {
  * By changing the size prop you can use different sizes of the button.
  */
 export const Sizes: Story = {
+	args: { ...DefaultButton.args },
 	render: args => <SizesTemplate {...args} />,
 };
 
@@ -144,6 +146,7 @@ const StartIconTemplate = (args: IButtonProps) => {
  * By changing the `startIcon` prop you can use different icons of the button.
  */
 export const StartIcons: Story = {
+	args: { ...DefaultButton.args },
 	render: args => <StartIconTemplate {...args} />,
 };
 
@@ -161,6 +164,7 @@ const EndIconTemplate = (args: IButtonProps) => {
  * By changing the `endIcon` prop you can use different icons of the button.
  */
 export const EndIcons: Story = {
+	args: { ...DefaultButton.args },
 	render: args => <EndIconTemplate {...args} />,
 };
 
@@ -181,6 +185,7 @@ const VariantsTemplate = (args: IButtonProps) => {
  **Contained** buttons are _high-emphasis_.
  */
 export const Variants: Story = {
+	args: { ...DefaultButton.args },
 	render: args => <VariantsTemplate {...args} />,
 };
 
@@ -200,5 +205,6 @@ const BtnTypesTemplate = (args: IButtonProps) => {
  * By changing the `btnType` prop you can use different styles of the button.
  */
 export const BtnTypes: Story = {
+	args: { ...DefaultButton.args },
 	render: args => <BtnTypesTemplate {...args} />,
 };

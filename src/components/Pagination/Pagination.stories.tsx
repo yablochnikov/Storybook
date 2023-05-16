@@ -69,7 +69,9 @@ const ArgTypes = {
 		description: 'Styles of the items wrapper.',
 	},
 };
-
+/**
+ * The Pagination Hook is a powerful tool that simplifies the implementation of pagination functionality in your React applications. It provides an intuitive API for managing page navigation, handling data fetching, and updating the UI based on user interactions. With just a few lines of code, you can easily integrate pagination into your components and enhance the user experience of your app.
+ */
 const meta: Meta<typeof Pagination> = {
 	title: 'Hooks/Pagination',
 	component: Pagination,

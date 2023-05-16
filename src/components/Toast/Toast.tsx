@@ -6,7 +6,7 @@ import { OverridableStringUnion } from '@mui/types';
 import { AlertPropsVariantOverrides } from '@mui/material/Alert/Alert';
 import { useTheme } from '@mui/system';
 
-interface IToastProps {
+export interface IToastProps {
 	id: string;
 	title: string;
 	timeoutMs: number;
@@ -30,7 +30,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 	);
 });
 
-export const Toast: FC<IToastProps> = ({
+const Toast: FC<IToastProps> = ({
 	showToast,
 	id,
 	title,
@@ -58,3 +58,5 @@ export const Toast: FC<IToastProps> = ({
 		</Snackbar>
 	);
 };
+
+export default Toast;
