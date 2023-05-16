@@ -4,7 +4,7 @@ import { ChangeEvent, FC, ReactNode, Ref } from 'react';
 
 type TextFieldVariant = 'outlined' | 'filled' | 'standard';
 type TextInputColor = 'primary' | 'secondary' | 'info' | 'error' | 'success' | 'warning';
-type TextInputType = 'text' | 'number' | 'password' | 'search' | 'date' | 'time';
+type TextInputType = 'text' | 'number' | 'password' | 'search' | 'date' | 'time' | 'email';
 type TextInputSize = 'medium' | 'small';
 type TextInputMargin = 'none' | 'normal' | 'dense';
 
@@ -36,7 +36,7 @@ export interface ITextInput {
 	inputRef?: Ref<HTMLInputElement>;
 }
 
-export const TextInput: FC<ITextInput> = ({ label, type, endAdornment, startAdornment, ...props }) => {
+const TextInput: FC<ITextInput> = ({ label, type, endAdornment, startAdornment, ...props }) => {
 	return (
 		<MuiTextInput
 			{...props}
@@ -50,3 +50,5 @@ export const TextInput: FC<ITextInput> = ({ label, type, endAdornment, startAdor
 		/>
 	);
 };
+
+export default TextInput;

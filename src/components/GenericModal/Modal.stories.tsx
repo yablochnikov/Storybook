@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { EmailRounded, LockRounded } from '@mui/icons-material';
-import { TextInput } from '../TextInput/TextInput';
+import TextInput from '../TextInput/TextInput';
 import GenericModal, { IModalProps } from './GenericModal';
 
 const ArgTypes = {
