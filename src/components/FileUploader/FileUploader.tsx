@@ -16,6 +16,7 @@ interface FileUploaderProps {
 	dragDropContainerStyles: SxProps;
 	uploaderTitleStyles: SxProps;
 	isSkeleton?: boolean;
+	submitButtonLabel?: string;
 }
 
 const FileUploader: FC<FileUploaderProps> = ({
@@ -25,6 +26,7 @@ const FileUploader: FC<FileUploaderProps> = ({
 	submitButtonCallback,
 	uploaderRootStyles,
 	dragDropContainerStyles,
+	submitButtonLabel,
 	uploaderTitleStyles,
 	isSkeleton = false,
 }) => {
@@ -133,6 +135,7 @@ const FileUploader: FC<FileUploaderProps> = ({
 				{files.length > 0 && (
 					<Grid item xs={12}>
 						<FilesList
+							submitButtonLabel={submitButtonLabel}
 							files={files}
 							handleRemove={handleRemove}
 							handleRemoveAll={handleRemoveAll}

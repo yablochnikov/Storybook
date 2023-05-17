@@ -4,7 +4,6 @@ import CheckIcon from '@mui/icons-material/Check';
 import { useTheme } from '@emotion/react';
 import { Box, Button, List, ListItem, ListItemIcon, ListItemText, Tooltip, Typography } from '@mui/material';
 import { File } from '../../core/models/fileUploader';
-import './FilesList.css';
 import { cutFileName } from '../../core/helpers/FileUploader';
 
 interface FilesListProps {
@@ -15,6 +14,7 @@ interface FilesListProps {
 	getFileExtension?: (fileName: string) => ReactElement;
 	removeButtonLabel?: string;
 	submitButtonCallback?: () => void;
+	submitButtonLabel?: string;
 }
 
 const FilesList: FC<FilesListProps> = ({
@@ -25,6 +25,7 @@ const FilesList: FC<FilesListProps> = ({
 	getFileExtension,
 	removeButtonLabel,
 	submitButtonCallback,
+	submitButtonLabel,
 }) => {
 	const theme = useTheme();
 
@@ -126,7 +127,7 @@ const FilesList: FC<FilesListProps> = ({
 				))}
 			</List>
 			<Button onClick={submitButtonCallback} sx={{ margin: '5px' }}>
-				Submit
+				{submitButtonLabel}
 			</Button>
 		</Box>
 	);

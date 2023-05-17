@@ -10,7 +10,7 @@ interface HeaderProps {
 	logo?: JSX.Element;
 	search?: boolean;
 	onSearch?: () => void;
-	position?: 'absolute' | 'fixed' | 'relative' | 'static';
+	position?: 'absolute' | 'relative' | 'static';
 }
 
 interface IMenuItem {
@@ -19,7 +19,7 @@ interface IMenuItem {
 	children?: IMenuItem[];
 }
 
-const Header: FC<HeaderProps> = ({ title, menuItems, logo, search, onSearch, position }) => {
+const Header: FC<HeaderProps> = ({ title, menuItems, logo, search, onSearch, position = 'static' }) => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
 

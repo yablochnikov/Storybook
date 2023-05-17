@@ -6,12 +6,12 @@ import interactionPlugin from '@fullcalendar/interaction';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import { DateSelectArg, EventClickArg } from '@fullcalendar/core';
+import { DateSelectArg, EventClickArg, CalendarOptions } from '@fullcalendar/core';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import './Calendar.css';
 import CalendarSkeleton from './CalendarSkeleton';
 
-interface CustomCalendarProps {
+interface CustomCalendarProps extends CalendarOptions {
 	displayWeekends?: boolean;
 	selectable?: boolean;
 	editable?: boolean;

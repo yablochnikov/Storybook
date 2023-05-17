@@ -8,7 +8,6 @@ interface IMultipleDropdownItem {
 	id: number;
 	value: string | JSX.Element | JSX.Element[];
 	index: number;
-	position?: string;
 }
 
 const MultipleDropdownItem: FC<IMultipleDropdownItem> = ({ dropdownItems, id, value, index }) => {
