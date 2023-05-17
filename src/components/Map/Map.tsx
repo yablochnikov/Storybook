@@ -21,7 +21,7 @@ import Places from './Places';
 import { Map, LatLngLiteral } from '../../core/models/map';
 import Distance from './Ditstance';
 
-type MapProps = {
+export type MapProps = {
 	lat: number;
 	lng: number;
 	zoom: number;
