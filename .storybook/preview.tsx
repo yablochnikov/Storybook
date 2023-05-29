@@ -42,6 +42,7 @@ export const globalTypes = {
 export const decorators = [WithTheme];
 
 export const parameters = {
+	layout: 'fullscreen',
 	actions: { argTypesRegex: '^on[A-Z].*' },
 	controls: {
 		matchers: {
