@@ -33,7 +33,7 @@ const Controls: FC<PlaceInputProps> = ({ setOrigin, setDestination, setIsLoading
 
 	const findMyLocation = () => {
 		if (navigator.geolocation) {
-			if (setIsLoading) setIsLoading(true);
+			setIsLoading && setIsLoading(true);
 			navigator.geolocation.getCurrentPosition(position => {
 				const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
 
