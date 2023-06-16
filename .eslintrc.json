@@ -35,6 +35,7 @@
 	},
 	"plugins": ["react", "@typescript-eslint", "prettier"],
 	"rules": {
+		"no-bitwise": "off",
 		"no-unused-expressions": "off",
 		"camelcase": "off",
 		"@typescript-eslint/camelcase": ["off"],

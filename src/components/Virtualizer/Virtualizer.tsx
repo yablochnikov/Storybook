@@ -1,7 +1,7 @@
-import uniqid from 'uniqid';
 import { Box, SxProps } from '@mui/material';
 import useVirtualizedList from '../../hooks/useVirtualList';
 import { VirtualizedListProps } from '../../core/models/virtualizer';
+import { generateUUID } from '../../core/helpers';
 
 const VirtualizedList = <T,>({ items, itemSize, renderItem, overScan = 10, type }: VirtualizedListProps<T>) => {
 	const { listRef, itemCount, startIndex, endIndex, handleScroll } = useVirtualizedList({
@@ -35,7 +35,7 @@ const VirtualizedList = <T,>({ items, itemSize, renderItem, overScan = 10, type 
 		<Box ref={listRef} sx={containerStyle} onScroll={handleScroll}>
 			<Box sx={spacerStyle} />
 			{visibleItems.map(item => (
-				<Box key={uniqid()} sx={itemStyle}>
+				<Box key={generateUUID()} sx={itemStyle}>
 					{renderItem(item)}
 				</Box>
 			))}
